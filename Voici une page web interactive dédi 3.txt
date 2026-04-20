@@ -1,0 +1,518 @@
+Voici une page web interactive dédiée aux **exercices** sur la leçon des outils d'interrogation (أدوات الاستفهام). Elle propose 4 types d'exercices variés avec correction instantanée et suivi de progression.
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>تمارين تفاعلية - أدوات الاستفهام</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Amiri', 'Segoe UI', 'Traditional Arabic', sans-serif;
+            background: linear-gradient(135deg, #f0f4e8 0%, #e6dfd1 100%);
+            padding: 2rem 1.5rem;
+            color: #2c2b28;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* en-tête */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background: #2d4a3b;
+            padding: 2rem 1rem;
+            border-radius: 60px;
+            color: white;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            letter-spacing: -1px;
+        }
+        .hero h1 span {
+            background: #f4b942;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        .score-board {
+            background: #fff3e0;
+            display: inline-block;
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            color: #3a5a47;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-top: 1rem;
+            box-shadow: inset 0 0 0 2px white, 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Grille des exercices */
+        .exercises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 2rem;
+        }
+
+        .exercise-card {
+            background: rgba(255, 252, 245, 0.95);
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            border: 1px solid #eadbbe;
+        }
+        .exercise-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            background: #b98746;
+            padding: 1rem 1.8rem;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card-title .icon {
+            font-size: 2rem;
+        }
+
+        .exercise-body {
+            padding: 1.6rem 1.8rem;
+        }
+
+        .question-item {
+            background: #fef7e8;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.2rem;
+            border-radius: 28px;
+            border-right: 6px solid #e2bc7c;
+            transition: all 0.2s;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #3a2c1c;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 12px 0 8px;
+        }
+        .option-btn {
+            background: #e9dfcf;
+            border: none;
+            padding: 0.5rem 1.3rem;
+            border-radius: 40px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 500;
+            color: #2e3b2c;
+        }
+        .option-btn:hover {
+            background: #c9aa7b;
+            color: white;
+            transform: scale(0.97);
+        }
+        .feedback-inline {
+            font-size: 0.9rem;
+            margin-top: 8px;
+            padding-right: 10px;
+            font-weight: 500;
+        }
+        .correct-fb {
+            color: #2a6b3c;
+            background: #e0f3e2;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+        }
+        .wrong-fb {
+            color: #ac3a2e;
+            background: #ffe2de;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+        }
+
+        .reset-btn {
+            background: #d6b575;
+            border: none;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            width: 100%;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .reset-btn:hover {
+            background: #a5723e;
+            color: white;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: #eeddbb;
+        }
+
+        .progress-section {
+            background: #f2e5d4;
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .badge-custom {
+            background: #517a5c;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #6b5a48;
+        }
+
+        @media (max-width: 700px) {
+            .exercises-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+        button {
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📚 <span>تَمَارِينُ تَفَاعُلِيَّةٌ</span> <br> أَدَوَاتُ الاسْتِفْهَام</h1>
+        <p>هَلْ - مَا - مَنْ - أَيْنَ - مَتَى</p>
+        <div class="score-board" id="globalScoreDisplay">⭐ الإجابات الصحيحة: 0 / 18</div>
+    </div>
+
+    <div class="exercises-grid">
+        <!-- Exercice 1 : Choisir l'outil interrogatif adapté -->
+        <div class="exercise-card">
+            <div class="card-title">
+                <span class="icon">🔍</span> التمرين الأول: اختر أداة الاستفهام المناسبة
+            </div>
+            <div class="exercise-body" id="ex1-container">
+                <!-- les questions seront injectées ici dynamiquement -->
+            </div>
+            <button class="reset-btn" id="resetEx1">⟳ إعادة تعيين التمرين الأول</button>
+        </div>
+
+        <!-- Exercice 2 : Associer question et réponse (أين/متى) -->
+        <div class="exercise-card">
+            <div class="card-title">
+                <span class="icon">🔗</span> التمرين الثاني: صِلِ السُّؤَالَ بِالجَوَابِ المُنَاسِبِ
+            </div>
+            <div class="exercise-body" id="ex2-container"></div>
+            <button class="reset-btn" id="resetEx2">⟳ إعادة تعيين التمرين الثاني</button>
+        </div>
+
+        <!-- Exercice 3 : Compléter avec l'outil correct (questions à trous) -->
+        <div class="exercise-card">
+            <div class="card-title">
+                <span class="icon">✍️</span> التمرين الثالث: املأ الفراغ بأداة الاستفهام الصحيحة
+            </div>
+            <div class="exercise-body" id="ex3-container"></div>
+            <button class="reset-btn" id="resetEx3">⟳ إعادة تعيين التمرين الثالث</button>
+        </div>
+
+        <!-- Exercice 4 : Vrai ou Faux / Choix de réponse pour "مَنْ" و "مَا" -->
+        <div class="exercise-card">
+            <div class="card-title">
+                <span class="icon">✅❌</span> التمرين الرابع: هَلِ الإجَابَةُ صَحِيحَةٌ؟
+            </div>
+            <div class="exercise-body" id="ex4-container"></div>
+            <button class="reset-btn" id="resetEx4">⟳ إعادة تعيين التمرين الرابع</button>
+        </div>
+    </div>
+
+    <div class="progress-section">
+        <div><span class="badge-custom">📊 تقدّمك</span> <span id="progressDetail">أجب على الأسئلة لترى النتيجة</span></div>
+        <div><span class="badge-custom">🎯 الهدف</span> إتقان جميع الأدوات</div>
+    </div>
+    <footer>✏️ انقر على أي إجابة – سيظهر لك التصحيح فوراً. أجب على جميع التمارين لتحسين مستواك!</footer>
+</div>
+
+<script>
+    // ---------- GLOBAL STATE ----------
+    // structure pour compter les réponses correctes par exercice
+    let answersState = {
+        ex1: [false, false, false, false, false], // 5 questions
+        ex2: [false, false, false, false],         // 4 paires
+        ex3: [false, false, false, false, false],  // 5 trous
+        ex4: [false, false, false, false]          // 4 affirmations
+    };
+    
+    // Correction possible pour chaque exercice (les bonnes réponses)
+    const ex1Correct = ["هَلْ", "أَيْنَ", "مَتَى", "مَا", "مَنْ"];
+    const ex2Match = [ // chaque question doit être associée à la réponse exacte (on stocke)
+        { q: "أَيْنَ تَدْرُسُ؟", correct: "أَدْرُسُ فِي الْمَدْرَسَةِ" },
+        { q: "مَتَى تُسَافِرُ؟", correct: "بَعْدَ أُسْبُوعٍ" },
+        { q: "مَا اسْمُكَ؟", correct: "اسْمِي خَالِدٌ" },
+        { q: "مَنْ أَبُوكَ؟", correct: "أَبِي أَحْمَدُ" }
+    ];
+    const ex3Correct = ["أَيْنَ", "مَتَى", "مَا", "هَلْ", "مَنْ"];
+    const ex4Correct = [true, false, true, false]; // صحيح/خطأ
+
+    let ex1UserAnswers = new Array(5).fill(null);
+    let ex2UserAnswers = new Array(4).fill(null); // stocke l'index de la réponse choisie parmi 2 ou 3 options
+    let ex3UserAnswers = new Array(5).fill(null);
+    let ex4UserAnswers = new Array(4).fill(null);
+
+    // Fonction pour mettre à jour l'affichage global
+    function updateGlobalScore() {
+        let totalCorrect = 0;
+        for (let i=0; i<answersState.ex1.length; i++) if(answersState.ex1[i]) totalCorrect++;
+        for (let i=0; i<answersState.ex2.length; i++) if(answersState.ex2[i]) totalCorrect++;
+        for (let i=0; i<answersState.ex3.length; i++) if(answersState.ex3[i]) totalCorrect++;
+        for (let i=0; i<answersState.ex4.length; i++) if(answersState.ex4[i]) totalCorrect++;
+        const totalPossible = answersState.ex1.length + answersState.ex2.length + answersState.ex3.length + answersState.ex4.length;
+        document.getElementById("globalScoreDisplay").innerHTML = `⭐ الإجابات الصحيحة: ${totalCorrect} / ${totalPossible}`;
+        document.getElementById("progressDetail").innerHTML = `✔️ أحرزت ${totalCorrect} من ${totalPossible} إجابة صحيحة. ${totalCorrect === totalPossible ? "🎉 ممتاز! أتقنت الدرس 🎉" : "واصل التمرين!"}`;
+    }
+
+    // Fonction pour enregistrer une réponse dans ex1
+    function answerEx1(questionIdx, selectedTool) {
+        ex1UserAnswers[questionIdx] = selectedTool;
+        const isCorrect = (selectedTool === ex1Correct[questionIdx]);
+        answersState.ex1[questionIdx] = isCorrect;
+        // mise à jour visuelle
+        const fbDiv = document.getElementById(`ex1-fb-${questionIdx}`);
+        if(isCorrect) {
+            fbDiv.innerHTML = `<span class="correct-fb">✅ صحيح! الأداة "${selectedTool}" مناسبة.</span>`;
+        } else {
+            fbDiv.innerHTML = `<span class="wrong-fb">❌ خطأ. الصواب: ${ex1Correct[questionIdx]}. "${selectedTool}" غير مناسب هنا.</span>`;
+        }
+        updateGlobalScore();
+    }
+
+    // ex2: associer (boutons avec réponses)
+    function answerEx2(questionIdx, selectedAnswer) {
+        ex2UserAnswers[questionIdx] = selectedAnswer;
+        const isCorrect = (selectedAnswer === ex2Match[questionIdx].correct);
+        answersState.ex2[questionIdx] = isCorrect;
+        const fbDiv = document.getElementById(`ex2-fb-${questionIdx}`);
+        if(isCorrect) {
+            fbDiv.innerHTML = `<span class="correct-fb">✅ مطابقة صحيحة: "${selectedAnswer}"</span>`;
+        } else {
+            fbDiv.innerHTML = `<span class="wrong-fb">❌ غير صحيح. الجواب الصحيح: ${ex2Match[questionIdx].correct}</span>`;
+        }
+        updateGlobalScore();
+    }
+
+    // ex3 : choix parmi outils
+    function answerEx3(questionIdx, selectedTool) {
+        ex3UserAnswers[questionIdx] = selectedTool;
+        const isCorrect = (selectedTool === ex3Correct[questionIdx]);
+        answersState.ex3[questionIdx] = isCorrect;
+        const fbDiv = document.getElementById(`ex3-fb-${questionIdx}`);
+        if(isCorrect) {
+            fbDiv.innerHTML = `<span class="correct-fb">✅ صحيح! أداة ${selectedTool} ممتازة.</span>`;
+        } else {
+            fbDiv.innerHTML = `<span class="wrong-fb">❌ خطأ. الأداة الصحيحة: ${ex3Correct[questionIdx]}</span>`;
+        }
+        updateGlobalScore();
+    }
+
+    // ex4 : vrai/faux
+    function answerEx4(questionIdx, isTrueSelected) {
+        ex4UserAnswers[questionIdx] = isTrueSelected;
+        const isCorrect = (isTrueSelected === ex4Correct[questionIdx]);
+        answersState.ex4[questionIdx] = isCorrect;
+        const fbDiv = document.getElementById(`ex4-fb-${questionIdx}`);
+        if(isCorrect) {
+            fbDiv.innerHTML = `<span class="correct-fb">✅ صحيح! حكمك دقيق.</span>`;
+        } else {
+            fbDiv.innerHTML = `<span class="wrong-fb">❌ خطأ. الإجابة الصحيحة هي ${ex4Correct[questionIdx] ? "صحيح" : "خطأ"}.</span>`;
+        }
+        updateGlobalScore();
+    }
+
+    // RENDER ALL EXERCISES
+    function renderEx1() {
+        const container = document.getElementById("ex1-container");
+        const questions = [
+            { text: ".......... أَنْتَ مُعْلِمٌ؟ (للاستفهام عن النفي والإثبات)" },
+            { text: ".......... تَسْكُنُ؟ (للاستفهام عن المكان)" },
+            { text: ".......... تَنَامُ؟ (للاستفهام عن الزمان)" },
+            { text: ".......... هَذَا؟ (للاستفهام عن شيء)" },
+            { text: ".......... يُدَرِّسُ اللُّغَةَ؟ (للاستفهام عن شخص)" }
+        ];
+        let html = "";
+        questions.forEach((q, idx) => {
+            html += `<div class="question-item">
+                        <div class="question-text">${idx+1}. ${q.text}</div>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerEx1(${idx}, 'هَلْ')">هَلْ</button>
+                            <button class="option-btn" onclick="answerEx1(${idx}, 'مَا')">مَا</button>
+                            <button class="option-btn" onclick="answerEx1(${idx}, 'مَنْ')">مَنْ</button>
+                            <button class="option-btn" onclick="answerEx1(${idx}, 'أَيْنَ')">أَيْنَ</button>
+                            <button class="option-btn" onclick="answerEx1(${idx}, 'مَتَى')">مَتَى</button>
+                        </div>
+                        <div id="ex1-fb-${idx}" class="feedback-inline"></div>
+                    </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderEx2() {
+        const container = document.getElementById("ex2-container");
+        let html = "";
+        ex2Match.forEach((item, idx) => {
+            // on propose deux réponses: la bonne + une fausse générique
+            let wrongAnswer = (item.correct === "أَدْرُسُ فِي الْمَدْرَسَةِ") ? "أَسْكُنُ فِي الْبَيْتِ" :
+                             (item.correct === "بَعْدَ أُسْبُوعٍ") ? "فِي الصَّبَاحِ" :
+                             (item.correct === "اسْمِي خَالِدٌ") ? "اسْمِي عَلِيٌّ" :
+                             "أُمِّي فَاطِمَةُ";
+            // variété
+            if(idx===3) wrongAnswer = "أَخِي سَعِيدٌ";
+            html += `<div class="question-item">
+                        <div class="question-text">❓ السؤال: ${item.q}</div>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerEx2(${idx}, '${item.correct.replace(/'/g, "\\'")}')">✅ ${item.correct}</button>
+                            <button class="option-btn" onclick="answerEx2(${idx}, '${wrongAnswer.replace(/'/g, "\\'")}')">❌ ${wrongAnswer}</button>
+                        </div>
+                        <div id="ex2-fb-${idx}" class="feedback-inline"></div>
+                    </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderEx3() {
+        const container = document.getElementById("ex3-container");
+        const blanks = [
+            { text: ".......... تَذْهَبُ إِلَى الْمَسْجِدِ؟ (مكان)", correct: "أَيْنَ" },
+            { text: ".......... تَسْتَيْقِظُ مِنَ النَّوْمِ؟ (زمان)", correct: "مَتَى" },
+            { text: ".......... عَمَلُ أَبِيكَ؟ (شيء)", correct: "مَا" },
+            { text: ".......... تُحِبُّ الْقِرَاءَةَ؟ (سؤال بنعم أو لا)", correct: "هَلْ" },
+            { text: ".......... ذَلِكَ الرَّجُلُ؟ (شخص)", correct: "مَنْ" }
+        ];
+        let html = "";
+        blanks.forEach((item, idx) => {
+            html += `<div class="question-item">
+                        <div class="question-text">${idx+1}. ${item.text}</div>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerEx3(${idx}, 'هَلْ')">هَلْ</button>
+                            <button class="option-btn" onclick="answerEx3(${idx}, 'مَا')">مَا</button>
+                            <button class="option-btn" onclick="answerEx3(${idx}, 'مَنْ')">مَنْ</button>
+                            <button class="option-btn" onclick="answerEx3(${idx}, 'أَيْنَ')">أَيْنَ</button>
+                            <button class="option-btn" onclick="answerEx3(${idx}, 'مَتَى')">مَتَى</button>
+                        </div>
+                        <div id="ex3-fb-${idx}" class="feedback-inline"></div>
+                    </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderEx4() {
+        const container = document.getElementById("ex4-container");
+        const statements = [
+            { text: "السُّؤَالُ بِـ (مَنْ) يَكُونُ عَنِ الْمَكَانِ.", correct: false },
+            { text: "أَدَاةُ (هَلْ) تُسْتَعْمَلُ لِلسُّؤَالِ عَنِ الشَّخْصِ.", correct: false },
+            { text: "لِلسُّؤَالِ عَنِ الزَّمَانِ نَسْتَعْمِلُ (مَتَى).", correct: true },
+            { text: "جُمْلَةُ (أَيْنَ تَعْمَلُ؟) تَسْأَلُ عَنِ الْوَقْتِ.", correct: false }
+        ];
+        let html = "";
+        statements.forEach((stmt, idx) => {
+            html += `<div class="question-item">
+                        <div class="question-text">${idx+1}. ${stmt.text}</div>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerEx4(${idx}, true)">✅ صحيح</button>
+                            <button class="option-btn" onclick="answerEx4(${idx}, false)">❌ خطأ</button>
+                        </div>
+                        <div id="ex4-fb-${idx}" class="feedback-inline"></div>
+                    </div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // Reset functions
+    function resetExercise(exNum) {
+        if(exNum === 1) {
+            answersState.ex1.fill(false);
+            ex1UserAnswers.fill(null);
+            renderEx1(); // re-render efface feedbacks
+        } else if(exNum === 2) {
+            answersState.ex2.fill(false);
+            ex2UserAnswers.fill(null);
+            renderEx2();
+        } else if(exNum === 3) {
+            answersState.ex3.fill(false);
+            ex3UserAnswers.fill(null);
+            renderEx3();
+        } else if(exNum === 4) {
+            answersState.ex4.fill(false);
+            ex4UserAnswers.fill(null);
+            renderEx4();
+        }
+        updateGlobalScore();
+    }
+
+    // Attach events + initial render
+    window.answerEx1 = answerEx1;
+    window.answerEx2 = answerEx2;
+    window.answerEx3 = answerEx3;
+    window.answerEx4 = answerEx4;
+    
+    renderEx1();
+    renderEx2();
+    renderEx3();
+    renderEx4();
+    
+    document.getElementById("resetEx1").addEventListener("click", () => resetExercise(1));
+    document.getElementById("resetEx2").addEventListener("click", () => resetExercise(2));
+    document.getElementById("resetEx3").addEventListener("click", () => resetExercise(3));
+    document.getElementById("resetEx4").addEventListener("click", () => resetExercise(4));
+    
+    updateGlobalScore();
+</script>
+</body>
+</html>
+```
