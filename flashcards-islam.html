@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ما لا يسع المسلم جهله – المستوى الثاني</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #fef9e6 0%, #f2ebd5 100%);
+      color: #2c2b26;
+      line-height: 1.6;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      background: linear-gradient(135deg, #1e3a2a, #2c5a2e);
+      position: relative;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+      background-size: cover;
+      opacity: 0.15;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .bismillah {
+      font-size: 3rem;
+      font-family: 'Amiri', serif;
+      margin-bottom: 1rem;
+    }
+    .hero-title-ar {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle-ar {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    .hero-divider {
+      width: 80px;
+      height: 3px;
+      background: #c7a45b;
+      margin: 1.5rem auto;
+    }
+    .hero-title-fr {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle-fr {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ===== NAV ===== */
+    #main-nav {
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 600;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #4a5b4e;
+    }
+    .nav-btn i {
+      font-size: 1.1rem;
+    }
+    .nav-btn .nav-ar {
+      font-size: 1rem;
+    }
+    .nav-btn .nav-fr {
+      font-size: 0.7rem;
+      opacity: 0.7;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      background: #2c5a2e;
+      color: white;
+    }
+    .nav-quiz {
+      background: #c7a45b;
+      color: white;
+    }
+    .nav-quiz:hover, .nav-quiz.active {
+      background: #b87c2e;
+    }
+
+    /* ===== MAIN ===== */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .content-section {
+      display: none;
+    }
+    .content-section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #e2d2b0;
+    }
+    .section-icon {
+      font-size: 2.5rem;
+      color: #c7a45b;
+    }
+    .section-title-ar {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #2c5a2e;
+    }
+    .section-title-fr {
+      font-size: 0.9rem;
+      color: #7a6b48;
+    }
+    .section-desc-fr {
+      font-size: 0.8rem;
+      color: #9a874f;
+    }
+
+    .subsection-label {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2c5a2e;
+      margin: 2rem 0 1rem;
+      padding-right: 0.8rem;
+      border-right: 4px solid #c7a45b;
+    }
+
+    /* Flashcards Grid */
+    .flashcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .flashcard {
+      background: transparent;
+      perspective: 1000px;
+      cursor: pointer;
+      height: 260px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .flashcard.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .card-front {
+      background: white;
+      border: 1px solid #e2d2b0;
+    }
+    .card-back {
+      background: #2c5a2e;
+      color: white;
+      transform: rotateY(180deg);
+    }
+    .q-num {
+      font-size: 0.8rem;
+      color: #c7a45b;
+      margin-bottom: 0.5rem;
+    }
+    .q-ar {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .q-fr {
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+    .flip-hint {
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      opacity: 0.6;
+    }
+    .answer-label {
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.2);
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.8rem;
+    }
+    .a-ar {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .a-fr {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .dalil {
+      font-size: 0.7rem;
+      margin-top: 0.8rem;
+      opacity: 0.7;
+    }
+
+    /* Pillars */
+    .pillars-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .pillar-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .pillar-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #e2d2b0;
+    }
+    .pillar-header i {
+      font-size: 1.8rem;
+      color: #c7a45b;
+    }
+    .pillar-header h3 {
+      font-size: 1.1rem;
+      color: #2c5a2e;
+    }
+    .pillar-list {
+      list-style: none;
+      padding-right: 0;
+    }
+    .pillar-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+    .pillar-list .ar {
+      font-weight: 600;
+    }
+    .pillar-list .fr {
+      font-size: 0.8rem;
+      color: #7a6b48;
+    }
+
+    /* Accordion */
+    .accordion {
+      margin: 1rem 0;
+    }
+    .acc-item {
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+    }
+    .acc-trigger {
+      width: 100%;
+      background: #faf5e6;
+      border: none;
+      padding: 1rem;
+      text-align: right;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Cairo', sans-serif;
+    }
+    .acc-trigger:hover {
+      background: #f0e8d8;
+    }
+    .acc-q-ar {
+      font-weight: 700;
+      color: #2c5a2e;
+    }
+    .acc-q-fr {
+      font-size: 0.8rem;
+      color: #7a6b48;
+      margin-right: 0.5rem;
+    }
+    .acc-body {
+      display: none;
+      padding: 1rem;
+      background: #fffef9;
+      border-top: 1px solid #e2d2b0;
+    }
+    .acc-item.active .acc-body {
+      display: block;
+    }
+
+    /* Info banner */
+    .info-banner {
+      background: #2c5a2e;
+      color: white;
+      padding: 1rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .info-banner i {
+      font-size: 2rem;
+    }
+
+    /* Quick review */
+    .quick-review {
+      background: white;
+      border-radius: 20px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .review-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem;
+      border-bottom: 1px dashed #e2d2b0;
+    }
+    .review-time {
+      min-width: 120px;
+      font-weight: 600;
+      color: #c7a45b;
+    }
+
+    /* Prophet card */
+    .prophet-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .prophet-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .prophet-icon {
+      font-size: 2.5rem;
+      color: #c7a45b;
+    }
+    .prophet-name-ar {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #2c5a2e;
+    }
+    .prophet-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .info-item {
+      text-align: center;
+      padding: 1rem;
+      background: #faf5e6;
+      border-radius: 16px;
+    }
+    .info-icon {
+      font-size: 1.5rem;
+      color: #c7a45b;
+    }
+
+    /* Quiz */
+    .quiz-intro {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 24px;
+    }
+    .btn-start-quiz {
+      background: #c7a45b;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .quiz-question-block {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+    .quiz-question {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .quiz-option {
+      background: #f0e8d8;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+    }
+    .quiz-option:hover {
+      background: #e2d2b0;
+    }
+    .quiz-feedback {
+      margin: 1rem 0;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    .feedback-correct {
+      background: #2c5a2e20;
+      color: #2c5a2e;
+    }
+    .feedback-wrong {
+      background: #c7a45b20;
+      color: #b87c2e;
+    }
+    .btn-next-q {
+      background: #2c5a2e;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* Scroll top */
+    #scroll-top {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #c7a45b;
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      z-index: 99;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1e3a2a;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="bismillah">﷽</div>
+      <h1 class="hero-title-ar">ما لا يسع المسلم جهله</h1>
+      <p class="hero-subtitle-ar">المستوى الثاني</p>
+      <div class="hero-divider"></div>
+      <h2 class="hero-title-fr">Ce que le Musulman ne peut ignorer</h2>
+      <p class="hero-subtitle-fr">Niveau 2 — Guide pédagogique interactif</p>
+      <div class="hero-badges">
+        <span class="badge"><i class="fas fa-book-open"></i> 20 Questions</span>
+        <span class="badge"><i class="fas fa-layer-group"></i> 3 Sections</span>
+        <span class="badge"><i class="fas fa-brain"></i> Quiz interactif</span>
+      </div>
+    </div>
+  </header>
+
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" data-section="aqida" onclick="showSection('aqida')">
+        <i class="fas fa-star-and-crescent"></i>
+        <span class="nav-ar">العقيدة</span>
+        <span class="nav-fr">Le Dogme</span>
+      </button>
+      <button class="nav-btn" data-section="adhkar" onclick="showSection('adhkar')">
+        <i class="fas fa-hands-praying"></i>
+        <span class="nav-ar">الأذكار</span>
+        <span class="nav-fr">Les Invocations</span>
+      </button>
+      <button class="nav-btn" data-section="sira" onclick="showSection('sira')">
+        <i class="fas fa-mosque"></i>
+        <span class="nav-ar">السيرة النبوية</span>
+        <span class="nav-fr">Biographie</span>
+      </button>
+      <button class="nav-btn nav-quiz" data-section="quiz" onclick="showSection('quiz')">
+        <i class="fas fa-graduation-cap"></i>
+        <span class="nav-ar">الاختبار</span>
+        <span class="nav-fr">Quiz</span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Section Aqida -->
+    <section id="aqida" class="content-section active">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-star-and-crescent"></i></div>
+        <div class="section-titles">
+          <h2 class="section-title-ar">العقيدة</h2>
+          <p class="section-title-fr">Le Dogme Islamique — Al-Aqida</p>
+        </div>
+      </div>
+      <div class="flashcards-grid" id="aqida-cards"></div>
+      <div class="pillars-container">
+        <div class="pillar-card pillar-islam">
+          <div class="pillar-header"><i class="fas fa-kaaba"></i><div><h3>أركان الإسلام</h3><p>Les 5 Piliers</p></div></div>
+          <ol class="pillar-list"><li><span class="ar">الشهادتان</span><span class="fr">La profession de foi</span></li><li><span class="ar">إقام الصلاة</span><span class="fr">La prière</span></li><li><span class="ar">إيتاء الزكاة</span><span class="fr">L'aumône</span></li><li><span class="ar">صوم رمضان</span><span class="fr">Le jeûne</span></li><li><span class="ar">حج البيت</span><span class="fr">Le pèlerinage</span></li></ol>
+        </div>
+        <div class="pillar-card pillar-iman">
+          <div class="pillar-header"><i class="fas fa-heart"></i><div><h3>أركان الإيمان</h3><p>Les 6 Piliers de la Foi</p></div></div>
+          <ol class="pillar-list"><li><span class="ar">الإيمان بالله</span><span class="fr">Croire en Allah</span></li><li><span class="ar">وملائكته</span><span class="fr">Ses Anges</span></li><li><span class="ar">وكتبه</span><span class="fr">Ses Livres</span></li><li><span class="ar">ورسله</span><span class="fr">Ses Messagers</span></li><li><span class="ar">واليوم الآخر</span><span class="fr">Au Jour Dernier</span></li><li><span class="ar">وبالقدر</span><span class="fr">Au Destin</span></li></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Adhkar -->
+    <section id="adhkar" class="content-section">
+      <div class="section-header"><div class="section-icon"><i class="fas fa-hands-praying"></i></div><div><h2 class="section-title-ar">الأذكار الشرعية</h2><p class="section-title-fr">Les Invocations Légales</p></div></div>
+      <div class="flashcards-grid" id="adhkar-cards"></div>
+    </section>
+
+    <!-- Section Sira -->
+    <section id="sira" class="content-section">
+      <div class="section-header"><div class="section-icon"><i class="fas fa-mosque"></i></div><div><h2 class="section-title-ar">السيرة النبوية</h2><p class="section-title-fr">Biographie du Prophète ﷺ</p></div></div>
+      <div class="flashcards-grid" id="sira-cards"></div>
+    </section>
+
+    <!-- Section Quiz -->
+    <section id="quiz" class="content-section">
+      <div class="section-header"><div class="section-icon"><i class="fas fa-graduation-cap"></i></div><div><h2 class="section-title-ar">الاختبار التفاعلي</h2><p class="section-title-fr">Quiz d'auto-évaluation</p></div></div>
+      <div id="quiz-container"><div id="quiz-start"><div class="quiz-intro"><div class="quiz-intro-icon"><i class="fas fa-brain"></i></div><h3>اختبر معلوماتك!</h3><p>10 أسئلة تغطي جميع الأقسام</p><button class="btn-start-quiz" onclick="startQuiz()">ابدأ الاختبار</button></div></div>
+      <div id="quiz-active" style="display:none;"><div id="quiz-question-block"></div><div id="quiz-feedback" class="hidden"></div><button class="btn-next-q hidden" id="btn-next-q" onclick="nextQuestion()">التالي</button></div>
+      <div id="quiz-result" style="display:none;"></div></div>
+    </section>
+  </main>
+
+  <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+  <footer><div class="footer-content"><p>ما لا يسع المسلم جهله — المستوى الثاني</p><p>Ce que le Musulman ne peut ignorer — Niveau 2</p></div></footer>
+
+  <script>
+    // بيانات الأسئلة
+    const aqidaQuestions = [
+      { qAr: "لماذا خلقنا الله؟", qFr: "Pourquoi Allah nous a-t-Il créés ?", aAr: "خلقنا الله لعبادته وحده لا شريك له", aFr: "Allah nous a créés pour L'adorer Lui seul.", ref: "صفحة 2" },
+      { qAr: "من أين نأخذ عقيدتنا؟", qFr: "D'où tirons-nous notre croyance ?", aAr: "من القرآن الكريم والسنة النبوية وكلام السلف الصالح", aFr: "Du Coran, de la Sunnah et des pieux prédécesseurs.", ref: "صفحة 2" },
+      { qAr: "ما هي الأصول الثلاثة؟", qFr: "Les trois fondements ?", aAr: "معرفة العبد ربه ودينه ونبيه محمد ﷺ", aFr: "Connaître son Seigneur, sa religion, son Prophète.", ref: "صفحة 3" },
+      { qAr: "ما أعظم ما أمر الله به؟", qFr: "La plus grande chose ordonnée ?", aAr: "التوحيد", aFr: "Le Tawhid (Monothéisme).", ref: "صفحة 3" },
+      { qAr: "ما أعظم ما نهى الله عنه؟", qFr: "La plus grande interdiction ?", aAr: "الشرك", aFr: "Le Shirk (associationnisme).", ref: "صفحة 4" }
+    ];
+
+    const adhkarQuestions = [
+      { qAr: "دعاء الاستيقاظ من النوم", qFr: "Invocation au réveil", aAr: "الحمد لله الذي عافاني في جسدي ورد علي روحي", aFr: "Louange à Allah qui m'a rendu la santé et mon âme." },
+      { qAr: "دعاء النوم", qFr: "Invocation avant de dormir", aAr: "باسمك اللهم أموت وأحيا", aFr: "En Ton nom, ô Allah, je meurs et je vis." },
+      { qAr: "دعاء دخول المنزل", qFr: "Entrée dans la maison", aAr: "بسم الله ولجنا وبسم الله خرجنا", aFr: "Au nom d'Allah nous entrons et sortons." }
+    ];
+
+    const siraQuestions = [
+      { qAr: "ما اسم نبينا ﷺ؟", qFr: "Nom de notre Prophète ?", aAr: "محمد بن عبد الله بن عبد المطلب", aFr: "Muhammad ibn Abdillah" },
+      { qAr: "كم كان عمره عند البعثة؟", qFr: "Âge à la prophétie ?", aAr: "أربعون سنة", aFr: "40 ans" }
+    ];
+
+    function renderFlashcards(containerId, data, type) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      let html = '';
+      data.forEach((item, idx) => {
+        html += `<div class="flashcard" onclick="this.classList.toggle('flipped')"><div class="card-inner"><div class="card-front"><div class="q-num">س ${idx+1}</div><div class="q-ar">${item.qAr}</div><div class="q-fr">${item.qFr}</div><span class="flip-hint"><i class="fas fa-rotate"></i> اضغط للإجابة</span></div><div class="card-back"><div class="answer-label">الجواب</div><div class="a-ar">${item.aAr}</div><div class="a-fr">${item.aFr}</div><div class="reference">${item.ref ? '📄 '+item.ref : ''}</div></div></div></div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    renderFlashcards('aqida-cards', aqidaQuestions);
+    renderFlashcards('adhkar-cards', adhkarQuestions);
+    renderFlashcards('sira-cards', siraQuestions);
+
+    // وظائف التنقل
+    function showSection(sectionId) {
+      document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.nav-btn[data-section="${sectionId}"]`).classList.add('active');
+    }
+
+    // Quiz logic
+    const quizData = [
+      { q: "ما أعظم ما أمر الله به？", options: ["الصلاة", "التوحيد", "الصوم", "الزكاة"], correct: 1 },
+      { q: "كم عدد أركان الإسلام؟", options: ["٣", "٤", "٥", "٦"], correct: 2 },
+      { q: "ما دعاء الخروج من المنزل؟", options: ["بسم الله", "بسم الله توكلت على الله", "الحمد لله", "الله أكبر"], correct: 1 },
+      { q: "أين توفي النبي ﷺ؟", options: ["مكة", "المدينة", "الطائف", "فلسطين"], correct: 1 }
+    ];
+    let currentQuiz = 0, score = 0;
+
+    function startQuiz() {
+      document.getElementById('quiz-start').style.display = 'none';
+      document.getElementById('quiz-active').style.display = 'block';
+      currentQuiz = 0; score = 0;
+      loadQuizQuestion();
+    }
+    function loadQuizQuestion() {
+      const q = quizData[currentQuiz];
+      document.getElementById('quiz-question-block').innerHTML = `<div class="quiz-question">${q.q}</div><div class="quiz-options">${q.options.map((opt, i) => `<button class="quiz-option" onclick="submitAnswer(${i})">${opt}</button>`).join('')}</div>`;
+      document.getElementById('quiz-feedback').classList.add('hidden');
+      document.getElementById('btn-next-q').classList.add('hidden');
+    }
+    function submitAnswer(selected) {
+      const q = quizData[currentQuiz];
+      const isCorrect = selected === q.correct;
+      if(isCorrect) score++;
+      document.getElementById('quiz-feedback').innerHTML = `<div class="feedback-${isCorrect ? 'correct' : 'wrong'}">${isCorrect ? '✅ صحيح' : '❌ خطأ'}</div>`;
+      document.getElementById('quiz-feedback').classList.remove('hidden');
+      document.getElementById('btn-next-q').classList.remove('hidden');
+      document.querySelectorAll('.quiz-option').forEach(btn => btn.disabled = true);
+    }
+    function nextQuestion() {
+      if(currentQuiz + 1 < quizData.length) { currentQuiz++; loadQuizQuestion(); }
+      else { endQuiz(); }
+    }
+    function endQuiz() {
+      document.getElementById('quiz-active').style.display = 'none';
+      document.getElementById('quiz-result').style.display = 'block';
+      document.getElementById('quiz-result').innerHTML = `<div class="quiz-intro"><h3>النتيجة: ${score}/${quizData.length}</h3><button class="btn-start-quiz" onclick="restartQuiz()">إعادة الاختبار</button></div>`;
+    }
+    function restartQuiz() { document.getElementById('quiz-result').style.display = 'none'; document.getElementById('quiz-start').style.display = 'block'; }
+
+    window.showSection = showSection;
+    window.startQuiz = startQuiz;
+    window.submitAnswer = submitAnswer;
+    window.nextQuestion = nextQuestion;
+    window.restartQuiz = restartQuiz;
+  </script>
+</body>
+</html>
