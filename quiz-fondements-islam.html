@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Quiz interactif - Les 3 Fondements (Islam)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, sans-serif;
+            background: linear-gradient(145deg, #f5f7fc 0%, #e9eef4 100%);
+            color: #1e2a3e;
+            padding: 2rem 1rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 1.5rem 2rem 2.5rem;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            background: linear-gradient(135deg, #1e4620, #2e7d32);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            border-left: 5px solid #2e7d32;
+            padding-left: 1rem;
+        }
+
+        .sub {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e293b;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background: #2e7d32;
+            color: white;
+            box-shadow: 0 4px 10px rgba(46,125,50,0.3);
+        }
+
+        .quiz-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.2s;
+            border: 1px solid #e2edf2;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-bottom: 2px solid #e0ede8;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .q-num {
+            background: #2e7d32;
+            color: white;
+            border-radius: 40px;
+            padding: 0.2rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.25rem 0;
+            color: #0f2b2d;
+        }
+
+        .answer-area {
+            padding: 1.2rem 1.5rem 1.5rem;
+            background: white;
+        }
+
+        .reveal-btn {
+            background: #1e466e;
+            border: none;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .reveal-btn:hover {
+            background: #0f2b3f;
+            transform: scale(0.97);
+        }
+
+        .model-answer {
+            background: #eef7ef;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 6px solid #2e7d32;
+            display: none;
+            font-size: 0.95rem;
+            color: #1a3c20;
+            transition: 0.2s;
+        }
+
+        .model-answer.show {
+            display: block;
+        }
+
+        .answer-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-input {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 1rem;
+            border: 1px solid #cbd5e6;
+            margin: 0.8rem 0 0.5rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .check-user {
+            background: #f5b042;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 0.8rem;
+        }
+
+        .feedback {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: #e2edf2;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #5a6e7c;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 1rem;
+            }
+            .question-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📖 Quiz des 3 Fondements essentiels</h1>
+    <div class="sub">Apprentissage interactif · Révision · Auto-évaluation</div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">📌 Toutes les questions</button>
+        <button class="filter-btn" data-filter="tawhid">🕋 Tawhid & polythéisme</button>
+        <button class="filter-btn" data-filter="prophète">🌟 Le Prophète ﷺ</button>
+        <button class="filter-btn" data-filter="actes">🕌 Actes & spiritualité</button>
+    </div>
+
+    <div id="quiz-container"></div>
+    <footer>✦ Appuyez sur « Voir la réponse » pour vérifier. Utilisez le champ pour noter votre propre réponse avant de comparer. ✦</footer>
+</div>
+
+<script>
+    // Base de données des questions / réponses modèles (basées sur les questions fournies)
+    const questionsData = [
+        { id: 1, text: "Pour quelles raisons l'auteur a débuté son ouvrage par la basmala ?", answer: "Par obéissance à l'ordre d'Allah (« Lis au nom de ton Seigneur ») et pour rechercher la bénédiction (baraka), suivant l'exemple du Prophète et des pieux prédécesseurs qui commençaient leurs écrits par « Bismillah ».", category: "actes" },
+        { id: 2, text: "Le Cheikh explique qu’il y a quatre choses que tout musulman se doit de connaître. Lesquelles ?", answer: "1) La science (le savoir), 2) La mise en pratique (agir selon ce savoir), 3) L'appel à cela (da'wa), 4) La patience face aux épreuves.", category: "fondements" },
+        { id: 3, text: "La preuve que le savoir doit précéder la prise de parole ou la mise en pratique est :", answer: "La parole d'Allah : « Sache donc qu'il n'y a point de divinité digne d'adoration excepté Allah, et implore le pardon pour ton péché. » (Sourate Muhammad, 19). Le savoir conditionne l'acte pour qu'il soit conforme à la législation.", category: "tawhid" },
+        { id: 4, text: "Expliquez le premier point obligatoire à chaque musulman et musulmane de connaître et de mettre en application :", answer: "La science du Tawhid (l'unicité d'Allah) : connaître Allah, Son Prophète et la religion de l'Islam par les preuves, en adorant Allah exclusivement et en rejetant toute fausse divinité (Taghout).", category: "tawhid" },
+        { id: 5, text: "La parole de l'imam Ash Shafi'i signifie-t-elle que la sourate al 'Asr est suffisante dans toute la législation ?", answer: "Non, il ne veut pas dire qu'elle remplace le reste du Coran et de la Sunna, mais que cette sourate rassemble l'essence du chemin du salut : la foi, les bonnes œuvres, l'entraide dans la vérité et la patience.", category: "actes" },
+        { id: 6, text: "Citez des exemples d'adoration apparentes et cachées :", answer: "Apparentes : prière, jeûne, zakât, hajj, paroles de rappel à haute voix. Cachées : amour d'Allah, crainte révérencielle, confiance sincère (tawakkul), patience face au destin, amour pour les croyants.", category: "actes" },
+        { id: 7, text: "Mises en situation (dire oui/non polythéisme) : a) Demander à une personne présente et capable de nous aider à porter un objet. b) Demander à un absent ou un mort de nous aider. c) Demander à une personne présente une chose que seul Allah est capable de faire.", answer: "a) Non (autorisé, aide mondaine). b) Oui (polythéisme majeur, car seul Allah détient la capacité d'agir sur l'invisible). c) Oui (polythéisme majeur, attribuer à la créature ce qui relève de la toute-puissance d'Allah).", category: "tawhid" },
+        { id: 8, text: "Toute pratique ne sera acceptée d’Allah que si elle est : a. b.", answer: "a) Sincèrement dédiée à Allah seul (Ikhlas). b) Conforme à la Sunna du Prophète ﷺ (Moutaba’ah).", category: "actes" },
+        { id: 9, text: "Qu'est-ce que les signes universels et les signes religieux ? Citez la parole d'Ibn Kathir.", answer: "Les signes universels : la création des cieux, de la terre, l'alternance nuit-jour. Les signes religieux : les versets du Coran. Ibn Kathir a dit : « Allah a soumis à l'homme les signes cosmiques et a envoyé des Messagers avec des signes clairs pour l’orienter vers l’adoration exclusive. »", category: "fondements" },
+        { id: 10, text: "« Les mosquées sont consacrées à Allah: n’invoquez donc personne avec Allah. » (72:18) Quels sont les sens du mot mosquées ? a. b. c.", answer: "a) Les lieux de prière physiques. b) Les membres du corps (qui se prosternent). c) Les moments de prière (interprétation des pieux prédécesseurs).", category: "tawhid" },
+        { id: 11, text: "Le terme Islam a 2 sens : général et particulier. Expliquez.", answer: "Sens général : se soumettre à Allah par le Tawhid, pour toute la création (croyants et mécréants dans la soumission universelle). Sens particulier : la religion apportée par Muhammad ﷺ, l'ensemble des actes et paroles prescrits.", category: "fondements" },
+        { id: 13, text: "Parmi les preuves concernant Al-Walâ wal Barâ (l’alliance et le désaveu) :", answer: "La parole d'Allah : « Tu n'en trouveras pas, parmi ceux qui croient en Allah et au Jour dernier, qui prennent pour alliés ceux qui s'opposent à Allah et à Son messager. » (Sourate Al-Mujadila, 22). Aimer pour Allah, haïr pour Allah.", category: "tawhid" },
+        { id: 14, text: "Répétition: la parole de l'imam Ash Shafi'i sur Sourate Al 'Asr signifie-t-elle qu'elle est suffisante ?", answer: "Non, il met en avant sa valeur synthétique mais l'ensemble du Coran et de la Sunna reste nécessaire pour la législation complète.", category: "actes" },
+        { id: 15, text: "« Je n’ai créé les jinns et les hommes que pour qu’ils M’adorent. » (51:56) Dans ce verset, le terme « adorer » signifie :", answer: "L'adoration exclusive dans le sens de l'unicité (Tawhid) : le connaître, L'aimer, se rapprocher de Lui par les actes d'obéissance et s'écarter du polythéisme.", category: "tawhid" },
+        { id: 16, text: "Quelles sont les 3 sortes de patience ?", answer: "1) Patience dans l'obéissance à Allah. 2) Patience à s'abstenir des péchés. 3) Patience face aux décrets douloureux (épreuves, maladies).", category: "actes" },
+        { id: 17, text: "Le Tawhid est de combien de types ?", answer: "Trois types : 1) Tawhid ar-Roububiyya (unicité dans la Seigneurie), 2) Tawhid al-Oulouhiyya (unicité dans l'adoration), 3) Tawhid al-Asma was-Sifat (unicité des noms et attributs).", category: "tawhid" },
+        { id: 18, text: "Le Chirk (polythéisme) est de combien de types ?", answer: "Deux types : majeur (qui fait sortir de l'islam) et mineur (qui n'exclut pas de la religion mais diminue le Tawhid, comme le riya' léger).", category: "tawhid" },
+        { id: 19, text: "Qu'est ce que Al-Hanifiya ?", answer: "La religion pure du monothéisme (Tawhid), la voie d'Abraham (Ibrahim) qui consiste à adorer Allah uniquement en s'écartant de toute idole.", category: "tawhid" },
+        { id: 20, text: "Parmi les preuves concernant Al-Walâ wal Barâ (répétition) :", answer: "Allah dit : « Que les croyants ne prennent pas les mécréants pour alliés au lieu des croyants » (3:28).", category: "tawhid" },
+        { id: 21, text: "Mouwâlatou l-kouffâr (fraterniser avec les mécréants, ou les prendre pour alliés) consiste :", answer: "Les aimer du cœur, les aider contre les musulmans, approuver leur mécréance ou imiter leur religion de manière illicite. Cela contredit la foi parfaite.", category: "tawhid" },
+        { id: 22, text: "En combien se divise l'invocation (dou'a) ?", answer: "Deux types : l'invocation d'adoration (dou'a de culte) et l'invocation de demande (dou'a de requête). Les deux doivent être exclusivement dirigées vers Allah.", category: "actes" },
+        { id: 23, text: "La peur interdite, comme celui qui a peur du défunt dans sa tombe, relève :", answer: "Du polythéisme majeur (chirk akbar), car la crainte mêlée de vénération qui n'est due qu'à Allah est dirigée vers un mort.", category: "tawhid" },
+        { id: 24, text: "Est-ce que c'est du chirk de demander quelque chose à une personne vivante, présente et capable, et lui demander du secours dans une chose qui lui est possible ?", answer: "Non, ce n'est pas du chirk tant que la demande reste dans les causes matérielles licites (ex: aide pour porter un seau). Mais croire que la personne agit indépendamment d'Allah est faux.", category: "tawhid" },
+        { id: 25, text: "« Le tawakkoul occulte » : s’en remettre à un mort en attendant de lui qu’il procure un bien ou qu’il repousse un mal est du Chirk (polythéisme) :", answer: "Oui, polythéisme majeur, car seule la confiance ultime (tawakkul) est due à Allah, et le mort ne peut rien.", category: "tawhid" },
+        { id: 26, text: "Les conditions du repentir (Tawbah) ?", answer: "1) Cesser le péché immédiatement, 2) Regretter sincèrement, 3) Résoudre à ne pas recommencer, 4) Restituer les droits aux personnes si le péché concerne autrui.", category: "actes" },
+        { id: 27, text: "Quelle est la différence entre la crainte et la peur ?", answer: "La crainte (khawf) est une émotion de respect mêlée de crainte de la puissance d'Allah, louable. La peur interdite (khawf chirk) consiste à craindre une créature comme on craint Allah dans l’absolu, ou à craindre un mort ou une idole.", category: "tawhid" },
+        { id: 28, text: "Que signifie connaître le Prophète ﷺ ?", answer: "Connaître sa lignée, sa vie, sa mission, croire en son message, l'aimer plus que soi-même, suivre sa Sunna et attester qu'il est le Messager d'Allah.", category: "prophète" },
+        { id: 29, text: "Quelle est la lignée du Prophète Mouhammad ﷺ ?", answer: "Il est Muhammad ibn Abdillah ibn Abd al-Mouttalib ibn Hachim, de la tribu de Quraych, descendant d'Ismaël fils d'Abraham (paix sur eux).", category: "prophète" },
+        { id: 30, text: "Quels sont les 4 points impératifs concernant l'attestation que Mohammed est le messager d'Allah ?", answer: "1) Croire qu'il est sincère dans tout ce qu'il rapporte. 2) Obéir à ses ordres. 3) S'abstenir de ses interdits. 4) N'adorer Allah qu'avec la législation qu'il a apportée.", category: "prophète" },
+        { id: 31, text: "Jusqu’à quel âge a vécu le Prophète ﷺ ?", answer: "63 ans (environ 53 avant l'Hégire et 10 ans après l'Hégire).", category: "prophète" },
+        { id: 32, text: "« Lève-toi et avertis [les hommes] » (Sourate Al-Muddaththir) signifie :", answer: "Le Prophète a reçu l'ordre d'avertir sa tribu proche d'abord, puis l'humanité entière, du châtiment du polythéisme et de l'appel à l'unicité d'Allah.", category: "prophète" },
+        { id: 33, text: "Le Prophète ﷺ dit : « La Hijrah ne cessera pas tant que le repentir sera accepté. Et le repentir ne cessera pas d’être accepté tant que le soleil ne se sera pas levé à ______.»", answer: "du couchant (de l'Occident) – signe de la fin des temps, la porte du repentir se fermera.", category: "actes" },
+        { id: 34, text: "Le Prophète ﷺ fut investi de sa mission de prophète lorsqu’il reçut la révélation du verset :..., et de sa mission de messager avec la révélation de la sourate…", answer: "Prophète : « Lis au nom de ton Seigneur » (premiers versets de Sourate Al-'Alaq). Messager : « Ô toi, le revêtu d'un manteau ! Lève-toi et avertis » (Sourate Al-Muddaththir).", category: "prophète" },
+        { id: 35, text: "Les cinq prières obligatoires furent prescrites lors de …", answer: "Lors du Voyage Nocturne et de l'Ascension (Al-Isra' wal-Mi'raj), au ciel, en cadeau d'Allah aux croyants.", category: "prophète" },
+        { id: 36, text: "Religieusement, la Hijrah (l’Émigration), c’est l’action …", answer: "D’abandonner les terres de mécréance pour les terres d’Islam, afin de pouvoir pratiquer sa religion librement, et également délaisser ce qu'Allah a interdit.", category: "actes" }
+    ];
+
+    // Correction / harmonisation des catégories
+    questionsData.forEach(q => {
+        if(!q.category) q.category = "fondements";
+        if(q.id === 5 || q.id === 14) q.category = "actes";
+        if(q.id === 36) q.category = "actes";
+        if(q.id === 26 || q.id === 22) q.category = "actes";
+        if(q.id === 33) q.category = "actes";
+    });
+
+    let currentFilter = "all";
+
+    function renderQuestions(filter) {
+        const container = document.getElementById("quiz-container");
+        const filtered = filter === "all" ? questionsData : questionsData.filter(q => q.category === filter);
+        if(filtered.length === 0) {
+            container.innerHTML = "<p style='text-align:center'>Aucune question dans cette catégorie.</p>";
+            return;
+        }
+        let html = "";
+        filtered.forEach((q, idx) => {
+            const qNumber = q.id;
+            html += `
+                <div class="quiz-card" data-category="${q.category}">
+                    <div class="quiz-header">
+                        <span class="q-num">Question ${qNumber}</span>
+                    </div>
+                    <div class="question-text" style="padding: 0 1.5rem 0 1.5rem; margin-top: 0.6rem;">${q.text}</div>
+                    <div class="answer-area">
+                        <textarea class="user-input" rows="2" placeholder="Écrivez votre réponse ici... (pour vous auto-évaluer)"></textarea>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;">
+                            <button class="check-user" data-id="${qNumber}">📝 Comparer ma réponse</button>
+                            <button class="reveal-btn" data-id="${qNumber}">🔍 Voir la réponse modèle</button>
+                        </div>
+                        <div class="feedback" id="feedback-${qNumber}"></div>
+                        <div class="model-answer" id="answer-${qNumber}">
+                            <div class="answer-label">✅ Réponse détaillée :</div>
+                            ${q.answer}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+
+        // attach events after render
+        document.querySelectorAll('.reveal-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                const answerDiv = document.getElementById(`answer-${id}`);
+                if(answerDiv) answerDiv.classList.toggle('show');
+            });
+        });
+
+        document.querySelectorAll('.check-user').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                const questionObj = questionsData.find(q => q.id == id);
+                const userTextarea = btn.closest('.answer-area')?.querySelector('.user-input');
+                const userAnswer = userTextarea ? userTextarea.value.trim() : "";
+                const feedbackDiv = document.getElementById(`feedback-${id}`);
+                if(questionObj) {
+                    const modelShort = questionObj.answer.substring(0, 120);
+                    if(userAnswer.length < 3) {
+                        feedbackDiv.innerHTML = "📘 Vous n'avez pas encore écrit de réponse. Comparez avec la réponse modèle ci-dessous (cliquez sur 'Voir réponse').";
+                        feedbackDiv.style.color = "#b45309";
+                    } else {
+                        feedbackDiv.innerHTML = `✏️ Votre réponse : « ${userAnswer.substring(0, 150)}${userAnswer.length>150 ? "…" : ""} ». <br> 💡 Idées clés du modèle : ${modelShort}... Essayez de compléter vos notes.`;
+                        feedbackDiv.style.color = "#1f4f2b";
+                    }
+                } else {
+                    feedbackDiv.innerHTML = "Référence introuvable.";
+                }
+                setTimeout(() => {
+                    setTimeout(() => { if(feedbackDiv) feedbackDiv.style.opacity = "1"; }, 50);
+                }, 10);
+            });
+        });
+    }
+
+    // filter buttons interactivity
+    const btns = document.querySelectorAll(".filter-btn");
+    btns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            btns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentFilter = btn.getAttribute("data-filter");
+            renderQuestions(currentFilter);
+        });
+    });
+
+    // initial render
+    renderQuestions("all");
+</script>
+</body>
+</html>
