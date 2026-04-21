@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>الدرس الرابع - ظروف الزمان والمكان | تفاعلي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8f9e8 0%, #f1f3e0 100%);
+            font-family: 'Segoe UI', 'Tahoma', 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
+            color: #1e2a2f;
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* container principal */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 255, 245, 0.85);
+            border-radius: 48px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(1px);
+            padding: 2rem 2rem 2.5rem;
+            transition: all 0.2s;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            color: #2c5e2e;
+            background: #e9f5e6;
+            display: inline-block;
+            width: auto;
+            margin: 0 auto 1rem;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+            letter-spacing: -0.5px;
+            box-shadow: 0 6px 0 #b8d9b0;
+        }
+
+        .title-wrap {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px dashed #c0cfb2;
+            padding-bottom: 0.75rem;
+        }
+
+        .sub {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #4a6741;
+            margin-top: -0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        /* بطاقات الظروف الأساسية */
+        .keywords-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 3rem;
+            background: #fefce8;
+            padding: 1.5rem 1rem;
+            border-radius: 60px;
+            box-shadow: inset 0 1px 4px #e2e4cf, 0 8px 18px rgba(0,0,0,0.05);
+        }
+
+        .keyword-badge {
+            background: #fff9e8;
+            border-right: 6px solid #4c9f4f;
+            padding: 0.5rem 1.3rem;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c5530;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            transition: 0.2s;
+            font-family: 'Amiri', 'Traditional Arabic', monospace;
+            cursor: default;
+        }
+
+        .keyword-badge:hover {
+            transform: translateY(-3px);
+            background: #eef5e9;
+            border-right-color: #e6b422;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.1);
+        }
+
+        /* أقسام الزمان والمكان */
+        .double-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: 0.2s;
+            border: 1px solid #e2e9d6;
+        }
+
+        .card-header {
+            background: #e6d9b6;
+            padding: 1rem 1.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            color: #3c2a1f;
+            border-bottom: 3px solid #b88b4a;
+            letter-spacing: 1px;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .example-list {
+            list-style: none;
+        }
+
+        .example-item {
+            background: #fef9e6;
+            margin-bottom: 1rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 28px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-right: 4px solid #c7b27b;
+            transition: 0.1s;
+        }
+
+        .example-item strong {
+            font-size: 1.35rem;
+            color: #b45f1b;
+            margin-left: 6px;
+            font-weight: 800;
+        }
+
+        .interactive-hint {
+            margin-top: 0.7rem;
+            font-size: 0.85rem;
+            color: #6e5a3c;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-show {
+            background: #cfd9bf;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #2d441f;
+            font-weight: bold;
+        }
+
+        .btn-show:hover {
+            background: #b5c99a;
+            transform: scale(0.97);
+        }
+
+        .extra-translation {
+            background: #faf3e0;
+            padding: 0.4rem 1rem;
+            border-radius: 28px;
+            font-size: 0.9rem;
+            color: #4c6a2e;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* جدول إضافي للزمان والمكان من النص الأصلي */
+        .legacy-table {
+            background: #f6f3e2;
+            border-radius: 32px;
+            padding: 1.5rem;
+            margin: 2rem 0 1.5rem;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .legacy-table h3 {
+            font-size: 1.6rem;
+            color: #42673b;
+            border-right: 6px solid #e2b13b;
+            padding-right: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .dual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .mini-card {
+            background: white;
+            border-radius: 24px;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e4e0cf;
+        }
+
+        .mini-card p {
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .mini-card small {
+            color: #896e42;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.85rem;
+            color: #6b6e55;
+            border-top: 1px solid #d8dbbc;
+            padding-top: 1.2rem;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .keyword-badge {
+                font-size: 1.1rem;
+                padding: 0.3rem 1rem;
+            }
+            .example-item {
+                font-size: 1rem;
+            }
+            .card-header {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title-wrap">
+        <h1>الدَّرْسُ الرَّابِع</h1>
+        <div class="sub">🌿 ظُرُوفُ الزَّمَانِ وَالْمَكَانِ 🌍</div>
+    </div>
+
+    <!-- كلمات الدرس الأساسية بطريقة تفاعلية -->
+    <div class="keywords-grid">
+        <span class="keyword-badge">بَعْدَ</span>
+        <span class="keyword-badge">قَبْلَ</span>
+        <span class="keyword-badge">أَمَامَ</span>
+        <span class="keyword-badge">خَلْفَ</span>
+        <span class="keyword-badge">فَوْقَ</span>
+        <span class="keyword-badge">ثُمَّ</span>
+        <span class="keyword-badge">غَدًا</span>
+        <span class="keyword-badge">أَمْسِ</span>
+        <span class="keyword-badge">بَعْدَ غَدٍ</span>
+        <span class="keyword-badge">أَوَّلَ أَمْسٍ</span>
+    </div>
+
+    <!-- قسم الزمان والمكان الرئيسي -->
+    <div class="double-section">
+        <!-- ظروف الزمان -->
+        <div class="card">
+            <div class="card-header">⏳ ظُرُوفُ الزَّمَانِ</div>
+            <div class="card-content">
+                <ul class="example-list">
+                    <li class="example-item">
+                        <strong>غَدًا:</strong> أُسَافِرُ غَدًا.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="سأسافر غدًا (I will travel tomorrow)">🔍 الترجمة</button>
+                            <span class="trans-text hidden-trans" style="display:none;">✨ السفر في المستقبل القريب</span>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>بَعْدَ غَدٍ:</strong> أَعُودُ بَعْدَ غَدٍ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="سأعود بعد غد (I will return after tomorrow)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>أَمْسِ:</strong> سَافَرَتْ أَمْسِ. &nbsp; تَزَوَّجَتْ أَمْسِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="سافرت أمس / تزوجت أمس (She traveled yesterday / got married yesterday)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>أَوَّلَ أَمْسٍ:</strong> سَافَرَتْ أَوَّلَ أَمْسٍ. &nbsp; عُدْتُ أَوَّلَ أَمْسٍ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="سافرت أول أمس / عدت أول أمس (She traveled the day before yesterday / I returned the day before yesterday)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>قَبْلَ:</strong> أَسْتَيْقِظُ قَبْلَ الْفَجْرِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="أستيقظ قبل الفجر (I wake up before dawn)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>بَعْدَ (للزمان):</strong> أَدْرُسُ بَعْدَ الْفَجْرِ. &nbsp; أَنْتَ مَا بَعْدَ الْعِشَاءِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="أدرس بعد الفجر (I study after dawn) / أنت ما بعد العشاء (You are after dinner time)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>ثُمَّ (لترتيب الأحداث):</strong> (من النص الضمني) يَأْتِي بَعْدُ ثُمَّ...
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="ثمَّ : للتعقيب والترتيب (then / afterwards)">🔍 المعنى</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ظروف المكان -->
+        <div class="card">
+            <div class="card-header">📍 ظُرُوفُ الْمَكَانِ</div>
+            <div class="card-content">
+                <ul class="example-list">
+                    <li class="example-item">
+                        <strong>أَمَامَ:</strong> (أَمَامَ المدرسةِ / أَمَامَ البيتِ) – مثال توضيحي: أَقِفُ أَمَامَ البَابِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="أمامَ = في الجهة المقابلة (in front of)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>خَلْفَ:</strong> جَلَسَ خَلْفَ المُعَلِّمِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="خلف = وراء (behind)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>فَوْقَ:</strong> الطَّائِرُ يَطِيرُ فَوْقَ السَّحَابِ.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="فوق = أعلى (above / on top of)">🔍 الترجمة</button>
+                        </div>
+                    </li>
+                    <li class="example-item">
+                        <strong>أَمَامَ / خَلْفَ (مزيد من الأمثلة):</strong> وَضَعْتُ الكِتَابَ أَمَامِي، وَالْحَقِيبَةَ خَلْفِي.
+                        <div class="interactive-hint">
+                            <button class="btn-show" data-trans="أمثلة مكانية تفاعلية">🔍 عرض</button>
+                        </div>
+                    </li>
+                </ul>
+                <div style="margin-top: 1rem; background:#E7EED9; border-radius: 28px; padding:0.6rem 1rem; text-align:center;">
+                    🌟 <strong>ملاحظة:</strong> ظروف المكان تدل على الموضع : أمام، خلف، فوق.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- إعادة عرض الجدول الأصلي بطريقة منظمة (من الملف) -->
+    <div class="legacy-table">
+        <h3>📖 نُصوصٌ مِنَ الدَّرْسِ (زمان + مكان)</h3>
+        <div class="dual-grid">
+            <div class="mini-card">
+                <p>✨ <strong>غَدًا</strong> : أُسَافِرُ غَدًا. / أَنْتَزَوَّجُ غَدًا.</p>
+                <small>✦ سفر وزواج في المستقبل</small>
+            </div>
+            <div class="mini-card">
+                <p>🌟 <strong>بَعْدَ غَدٍ</strong> : أُسَافِرُ بَعْدَ غَدٍ. / أَعُودُ بَعْدَ غَدٍ.</p>
+                <small>✦ بعد غدٍ بيومين</small>
+            </div>
+            <div class="mini-card">
+                <p>📅 <strong>أَمْسِ</strong> : سَافَرَتْ أَمْسِ. / تَزَوَّجَتْ أَمْسِ.</p>
+                <small>✦ أحداث مضت بالأمس</small>
+            </div>
+            <div class="mini-card">
+                <p>📆 <strong>أَوَّلَ أَمْسٍ</strong> : سَافَرَتْ أَوَّلَ أَمْسٍ. / عُدْتُ أَوَّلَ أَمْسٍ.</p>
+                <small>✦ قبل يومين من اليوم</small>
+            </div>
+            <div class="mini-card">
+                <p>⏰ <strong>بَعْدَ + قَبْلَ</strong> : أَدْرُسُ بَعْدَ الْفَجْرِ. / أَسْتَيْقِظُ قَبْلَ الْفَجْرِ.</p>
+                <small>✦ الفجر علامة زمنية</small>
+            </div>
+            <div class="mini-card">
+                <p>🏠 <strong>أَمَامَ / خَلْفَ / فَوْقَ</strong> : ظروف مكان أصيلة.</p>
+                <small>✦ المكان يحدد العلاقات الفراغية</small>
+            </div>
+        </div>
+        <div style="margin-top: 1rem; font-size:0.95rem; background:#FFF2DD; border-radius: 24px; padding:0.6rem 1rem;">
+            💡 <strong>مثال مركب:</strong> «أَنْتَ مَا بَعْدَ الْعِشَاءِ» – إشارة إلى وقت العشاء.
+        </div>
+    </div>
+
+    <!-- قسم إضافي لممارسة سريعة (اختبار ذاتي بسيط) -->
+    <div style="background:#e5eace; border-radius: 32px; padding: 1.5rem; margin: 1.8rem 0;">
+        <h3 style="display: flex; align-items: center; gap: 0.6rem; font-size: 1.6rem;">🧠 <span>تَطْبِيقٌ تَفَاعُلِيٌّ - رَاجِعْ نَفْسَكَ</span></h3>
+        <p style="margin-bottom: 1rem;">إختر الظرف المناسب للمعنى المطلوب (زمان أو مكان) من القائمة.</p>
+        <div id="quiz-area" style="background: #fffcf0; border-radius: 28px; padding: 1rem;">
+            <div id="question-text" style="font-size: 1.35rem; font-weight: bold; margin-bottom: 1rem;"></div>
+            <div id="options-container" style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.2rem;"></div>
+            <div id="quiz-feedback" style="font-size: 1rem; padding: 0.5rem;"></div>
+            <button id="next-quiz" style="background:#7faa5f; border:none; padding:0.5rem 1.8rem; border-radius: 60px; color:white; font-weight: bold; cursor:pointer;">➡️ سؤال آخر</button>
+        </div>
+    </div>
+
+    <footer>
+        الدَّرْسُ الرَّابِع – ظُرُوفُ الزَّمَانِ وَالْمَكَانِ 🕌 <br>
+        تفاعل مع البطاقات والأزرار لترى الترجمات والتوضيحات، واختبر معلوماتك في الاختبار القصير.
+    </footer>
+</div>
+
+<script>
+    // تفعيل أزرار الترجمة في كل العناصر
+    const allTranslateBtns = document.querySelectorAll('.btn-show');
+    allTranslateBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const parentItem = this.closest('.example-item');
+            if (!parentItem) return;
+            // نبحث عن أي عنصر يحمل class trans-text أو ننشئ رسالة منسقة
+            let transSpan = parentItem.querySelector('.trans-text');
+            const translationMsg = this.getAttribute('data-trans') || "🔎 معنى تقريبي";
+            if (!transSpan) {
+                // إنشاء عنصر لعرض الترجمة
+                transSpan = document.createElement('span');
+                transSpan.className = 'trans-text';
+                transSpan.style.display = 'inline-block';
+                transSpan.style.marginRight = '12px';
+                transSpan.style.background = '#f2e8cf';
+                transSpan.style.padding = '0.2rem 0.8rem';
+                transSpan.style.borderRadius = '30px';
+                transSpan.style.fontSize = '0.85rem';
+                transSpan.style.color = '#4f5b2e';
+                const hintDiv = parentItem.querySelector('.interactive-hint');
+                if (hintDiv) {
+                    hintDiv.appendChild(transSpan);
+                } else {
+                    parentItem.appendChild(transSpan);
+                }
+            }
+            if (transSpan.innerText === translationMsg) {
+                // alternate? لا مشكلة, نتركها أو نغلق? جعلها تختفي بعد 2 ثانية أو نضيف toggle
+                // لكن الأفضل: إظهار الرسالة وإذا ضغط مرة أخرى تخفى؟ نجعلها toggle
+                if (transSpan.style.opacity === '0' || transSpan.innerText === '') {
+                    transSpan.innerText = translationMsg;
+                    transSpan.style.opacity = '1';
+                } else {
+                    transSpan.innerText = '';
+                    transSpan.style.opacity = '0';
+                    setTimeout(() => {
+                        if (transSpan.innerText === '') transSpan.remove();
+                    }, 200);
+                }
+            } else {
+                transSpan.innerText = translationMsg;
+                transSpan.style.opacity = '1';
+            }
+        });
+    });
+
+    // مسابقة صغيرة (اختبار) مبنية على ظروف الدرس
+    const quizBank = [
+        { question: "أُسَافِرُ ........... (في اليوم التالي لليوم الحالي)", correct: "غَدًا", options: ["أَمْسِ", "غَدًا", "بَعْدَ غَدٍ", "أَوَّلَ أَمْسٍ"] },
+        { question: "صلاة الفجر ........... الشروق. (قبل / بعد)", correct: "قَبْلَ", options: ["بَعْدَ", "قَبْلَ", "خَلْفَ", "فَوْقَ"] },
+        { question: "وَضَعْتُ الكِتَابَ ........... الحَاسُوبِ (في الجهة المقابلة)", correct: "أَمَامَ", options: ["خَلْفَ", "أَمَامَ", "فَوْقَ", "ثُمَّ"] },
+        { question: "جَلَسَ الوَلَدُ ........... أَبِيهِ (خلف)", correct: "خَلْفَ", options: ["فَوْقَ", "أَمَامَ", "خَلْفَ", "غَدًا"] },
+        { question: "سَافَرَتْ فَاطِمَةُ ........... (أول أمس)", correct: "أَوَّلَ أَمْسٍ", options: ["أَمْسِ", "غَدًا", "أَوَّلَ أَمْسٍ", "بَعْدَ غَدٍ"] },
+        { question: "الطَّائِرَةُ تَحْلِيقُ ........... الغُيُومِ (فوق)", correct: "فَوْقَ", options: ["تَحْتَ", "فَوْقَ", "أَمَامَ", "قَبْلَ"] },
+        { question: "أَدْرُسُ ........... العَشَاءِ (بعد)", correct: "بَعْدَ", options: ["قَبْلَ", "بَعْدَ", "خَلْفَ", "غَدًا"] },
+        { question: "........... ذَهَبْتُ إِلَى السُّوقِ، ثُمَّ رَجَعْتُ (ثم للترتيب)", correct: "ثُمَّ", options: ["بَعْدَ", "قَبْلَ", "ثُمَّ", "فَوْقَ"] }
+    ];
+
+    let currentQuizIndex = 0;
+    const questionEl = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackEl = document.getElementById('quiz-feedback');
+    const nextBtn = document.getElementById('next-quiz');
+
+    function loadQuiz() {
+        if (!quizBank.length) return;
+        const current = quizBank[currentQuizIndex % quizBank.length];
+        questionEl.innerText = current.question;
+        optionsContainer.innerHTML = '';
+        feedbackEl.innerHTML = '';
+        // خلط الخيارات قليلاً لكن الحفاظ على المحتوى
+        const shuffled = [...current.options].sort(() => Math.random() - 0.5);
+        shuffled.forEach(opt => {
+            const btnOpt = document.createElement('button');
+            btnOpt.innerText = opt;
+            btnOpt.style.background = "#e6ddb3";
+            btnOpt.style.border = "none";
+            btnOpt.style.padding = "0.5rem 1.2rem";
+            btnOpt.style.borderRadius = "40px";
+            btnOpt.style.fontSize = "1rem";
+            btnOpt.style.fontFamily = "inherit";
+            btnOpt.style.cursor = "pointer";
+            btnOpt.style.transition = "0.1s";
+            btnOpt.style.fontWeight = "bold";
+            btnOpt.addEventListener('click', () => {
+                // check answer
+                if (opt === current.correct) {
+                    feedbackEl.innerHTML = "✅ إجابة صحيحة! أحسنت.";
+                    feedbackEl.style.color = "#2d6a2f";
+                    // تعطيل الخيارات بعد الإجابة الصحيحة اختيارياً
+                    const allOpts = document.querySelectorAll('#options-container button');
+                    allOpts.forEach(btn => btn.disabled = true);
+                } else {
+                    feedbackEl.innerHTML = `❌ إجابة خاطئة. الصواب: "${current.correct}". حاول مرة أخرى في السؤال القادم.`;
+                    feedbackEl.style.color = "#ac4e2e";
+                }
+            });
+            optionsContainer.appendChild(btnOpt);
+        });
+        // تحديث المؤشر
+        currentQuizIndex = (currentQuizIndex + 1) % quizBank.length;
+    }
+
+    function nextQuestion() {
+        loadQuiz();
+    }
+
+    nextBtn.addEventListener('click', () => {
+        nextQuestion();
+    });
+
+    // تحميل أول سؤال بشكل عشوائي
+    function randomFirst() {
+        currentQuizIndex = Math.floor(Math.random() * quizBank.length);
+        loadQuiz();
+    }
+    randomFirst();
+
+    // إضافة تأثير تفاعلي لعرض الترجمات في بطاقات legacy-table (اختياري)
+    const miniCards = document.querySelectorAll('.mini-card');
+    miniCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+            const text = card.innerText;
+            const tooltipDiv = document.createElement('div');
+            tooltipDiv.innerText = '🔍 اضغط على زر الترجمة في البطاقات أعلاه لمزيد من التفاصيل.';
+            tooltipDiv.style.fontSize = '0.7rem';
+            tooltipDiv.style.color = '#906f3c';
+            if (!card.querySelector('.extra-tip')) {
+                const tipSpan = document.createElement('div');
+                tipSpan.className = 'extra-tip';
+                tipSpan.innerText = '⭐ راجع الظرف في القسم التفاعلي';
+                tipSpan.style.marginTop = '0.4rem';
+                tipSpan.style.fontSize = '0.7rem';
+                card.appendChild(tipSpan);
+                setTimeout(() => {
+                    tipSpan.remove();
+                }, 1500);
+            }
+        });
+    });
+</script>
+</body>
+</html>"Add Arabic interactive lesson"
