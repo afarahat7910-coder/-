@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>الهدى والعلم: مثل الغيث | ملف تفاعلي للدراسة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f7f3e9 0%, #fff7e8 100%);
+            font-family: 'Segoe UI', 'Tajawal', 'Amiri', 'Traditional Arabic', 'Cairo', serif;
+            color: #2c3a1f;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 252, 240, 0.9);
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 5px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 2rem 2rem 3rem;
+            border: 1px solid #e9d6a7;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #c2a15b;
+            padding-bottom: 1.2rem;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #7a5c2e;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 2px 0 #f0e1b9;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #5e4b2b;
+            background: #f3efdf;
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+            border-radius: 40px;
+            margin-top: 0.8rem;
+        }
+
+        .hadith-card {
+            background: #fef7e0;
+            border-right: 8px solid #b8860b;
+            padding: 1.6rem 2rem;
+            border-radius: 28px;
+            margin: 2rem 0;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .hadith-card p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        /* grid interactive */
+        .grid-three {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 240px;
+            background: white;
+            border-radius: 32px;
+            padding: 1.2rem 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border-top: 6px solid;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: #3e3a2e;
+            font-size: 1rem;
+        }
+
+        .card1 { border-top-color: #2e7d32; }
+        .card2 { border-top-color: #f9a825; }
+        .card3 { border-top-color: #b5651e; }
+
+        .badge {
+            background: #ebd8b0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            background: linear-gradient(90deg, #dac07c, #f9efcf);
+            display: inline-block;
+            padding: 0.3rem 2rem;
+            border-radius: 60px;
+            color: #4a3a1c;
+        }
+
+        .verse-box, .quote-box {
+            background: #eef3e2;
+            padding: 1.5rem;
+            border-radius: 28px;
+            margin: 1.2rem 0;
+            border-right: 5px solid #4f6b2c;
+            font-style: normal;
+        }
+
+        .accordion {
+            background-color: #fff3e0;
+            border-radius: 28px;
+            margin: 1rem 0;
+        }
+
+        .accordion-btn {
+            background-color: #f2e5cf;
+            width: 100%;
+            text-align: right;
+            padding: 1rem 1.8rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: inherit;
+            color: #4a3720;
+        }
+
+        .accordion-btn:hover {
+            background-color: #e8d5b5;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 1.2rem;
+            background: #fefcf5;
+            border-radius: 0 0 28px 28px;
+        }
+
+        .accordion-content.show {
+            max-height: 800px;
+            padding: 1rem 1.8rem 1.8rem;
+        }
+
+        .table-compare {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fffaf0;
+            margin: 1.5rem 0;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .table-compare th, .table-compare td {
+            border: 1px solid #e0cfaa;
+            padding: 12px 16px;
+            vertical-align: top;
+            text-align: right;
+        }
+
+        .table-compare th {
+            background-color: #d9c48b;
+            color: #2d2b1f;
+            font-size: 1.1rem;
+        }
+
+        .interactive-btn {
+            background: #b68b40;
+            border: none;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s linear;
+        }
+
+        .flashcard {
+            background: #f9efcf;
+            border-radius: 28px;
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 10px 15px -5px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7f6b48;
+            border-top: 1px dashed #d4bd89;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 750px) {
+            .container {
+                padding: 1rem;
+            }
+            .card h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🌾 مثل الهدى والعلم كمثل الغيث 🌧️</h1>
+        <p>حديث نبوي عظيم | دراسة تفاعلية وتصنيف القلوب</p>
+    </div>
+
+    <!-- الحديث النبوي الشريف -->
+    <div class="hadith-card">
+        <p>☁️ عن أبي موسى رضي الله عنه عن النبي ﷺ قال: <br>
+        «إنَّ مَثَلَ مَا بَعَثَنِي اللَّهُ بِهِ مِنَ الْهُدَى وَالْعِلْمِ، كَمَثَلِ غَيْثٍ أَصَابَ أَرْضًا، فَكَانَتْ مِنْهَا طَائِفَةٌ طَيِّبَةٌ، قَبِلَتِ الْمَاءَ فَأَنْبَتَتِ الْكَلَأَ وَالْعُشْبَ الْكَثِيرَ، وَكَانَ مِنْهَا أَجَادِبُ، أَمْسَكَتِ الْمَاءَ؛ فَنَفَعَ اللهُ بِهَا النَّاسَ، فَشَرِبُوا مِنْهَا وَسَقَوْا وَرَعَوْا، وَأَصَابَ طَائِفَةً مِنْهَا أُخْرَى، إِنَّمَا هِيَ قِيعَانُ، لَا تُمْسِكُ مَاءً وَلَا تُنْبِتُ كَلَأً، فَذَلِكَ مَثَلُ مَنْ فَقُهَ فِي دِينِ اللَّهِ، وَنَفَعَهُ بِمَا بَعَثَنِي اللهُ بِهِ، فَعَلِمَ وَعَلَّمَ. وَمَثَلُ مَنْ لَمْ يَرْفَعْ بِذَلِكَ رَأْسًا، وَلَمْ يَقْبَلْ هُدَى اللَّهِ الَّذِي أُرْسِلْتُ بِهِ». متفق عليه.</p>
+    </div>
+
+    <!-- تصنيف تفاعلي للأقسام الثلاثة -->
+    <div style="text-align: center; margin: 0.5rem 0;">
+        <span class="section-title">🌱 الأقسام الثلاثة في قبول العلم والهدى</span>
+    </div>
+    <div class="grid-three">
+        <div class="card card1" onclick="alert('🌾 القسم الأول: علماء ربانيون، حفظوا وفهموا واستنبطوا الأحكام، كالأرض الطيبة التي أنبتت الكلأ والعشب الكثير.')">
+            <h3>🌿 القسم الأول <span class="badge">أرض طيبة</span></h3>
+            <p>📖 حفظوا العلم وفقهوه، واستنبطوا الأحكام والحكم، <strong>فعلموا وعلَّموا</strong>، مثلهم كالأرض التي قبلت الماء فأنبتت الكلأ والعشب الكثير.</p>
+            <p><em>مثالهم: الحفاظ الفقهاء أهل الرواية والدراية.</em></p>
+        </div>
+        <div class="card card2" onclick="alert('💧 القسم الثاني: حفظة ناقلون، ضبطوا الألفاظ ورووها، وانتفع بهم الناس، كالأجادب التي تمسك الماء للناس فيشربون ويسقون.')">
+            <h3>💧 القسم الثاني <span class="badge">أرض ممسكة للماء</span></h3>
+            <p>📚 حفظوا النص ونقلوه وضبطوه، لكن لم يرزقوا الفقه العميق والاستنباط، ومع ذلك نفع الله بهم الناس، يشربون ويسقون ويرعون.</p>
+            <p><em>مثلهم: قرّاء وحفظة يعلمون الناس ألفاظ القرآن ورواياته.</em></p>
+        </div>
+        <div class="card card3" onclick="alert('⚠️ القسم الثالث: قيعان لا تمسك ماء ولا تنبت كلأ، لم يقبلوا الهدى، وهم الأشقياء، لم يرفعوا برأس الله رأسًا.')">
+            <h3>⚠️ القسم الثالث <span class="badge">أرض قيعان</span></h3>
+            <p>🚫 لا حفظ ولا فهم ولا قبول للهدى، لم ينتفعوا بأنفسهم ولم ينفعوا غيرهم، شر من الأنعام وهم وقود النار.</p>
+            <p><em>أعاذنا الله وإياكم من طريقهم.</em></p>
+        </div>
+    </div>
+
+    <!-- شرح ابن القيم و التقسيم -->
+    <div class="accordion">
+        <button class="accordion-btn">📜 شرح ابن القيم رحمه الله: تشبيه العلم بالغيث 🔽</button>
+        <div class="accordion-content">
+            <p>🔹 شبه ﷺ العلم والهدى بالغيث؛ لما فيه من الحياة والمنافع والأغذية والأدوية للعباد.</p>
+            <p>🔹 شبه القلوب بالأراضي؛ فمنها ما يمسك الماء فينبت النبات، ومنها ما يحفظ العلم فيثمر ويزكو. وذكر ثلاثة أقسام بحسب الاستعداد:</p>
+            <ul>
+                <li><strong>أولاً</strong>: أهل الفهم والاستنباط (أرض طيبة).</li>
+                <li><strong>ثانياً</strong>: أهل الحفظ والرواية مع نفع الناس (أجادب أمسكت الماء).</li>
+                <li><strong>ثالثاً</strong>: من لا حفظ ولا فهم (قيعان لا تمسك ماء).</li>
+            </ul>
+            <p>📌 وقال علي بن أبي طالب رضي الله عنه: «إلا فهمًا يؤتيه الله عبدًا في كتابه». والتفاوت عظيم بين الناس في الفهم عن الله ورسوله.</p>
+        </div>
+    </div>
+
+    <!-- جدول مقارنة تفصيلي -->
+    <span class="section-title">📊 جدول المقارنة بين الأقسام</span>
+    <table class="table-compare">
+        <thead>
+            <tr><th>الصنف</th><th>مثله من الأرض</th><th>صفته في العلم</th><th>الناتج والثمرة</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>🌾 القسم الأول (السابقون)</td><td>أرض طيبة قبلت الماء فأنبتت الكلأ والعشب الكثير</td><td>حفظ + فهم + استنباط + تعليم</td><td>ينتفع بنفسه ويعلم غيره، يثمر الحكمة والأحكام</td></tr>
+            <tr><td>💧 القسم الثاني (المقتصدون)</td><td>أجادب أمسكت الماء فشرب الناس وسقوا ورعوا</td><td>حفظ وضبط ورواية، لكن بغير فهم عميق</td><td>نفع الناس بالحفظ والرواية، وهم وعاء للعلم</td></tr>
+            <tr><td>⚠️ القسم الثالث (الأشقيا)</td><td>قيعان لا تمسك ماء ولا تنبت كلأ</td><td>لا حفظ ولا فهم، رفض الهدى</td><td>لا نفع لأنفسهم ولا لغيرهم، وهم شر الخلق</td></tr>
+        </tbody>
+    </table>
+
+    <!-- آيات و أمثلة: تشبيه القلوب بالأرض والماء -->
+    <div class="verse-box">
+        <p>📖 <strong>قال تعالى:</strong> ﴿أَلَمْ يَأْنِ لِلَّذِينَ آمَنُوا أَن تَخْشَعَ قُلُوبُهُمْ لِذِكْرِ اللَّهِ وَمَا نَزَلَ مِنَ الْحَقِّ... اعْلَمُوا أَنَّ اللَّهَ يُحْيِي الْأَرْضَ بَعْدَ مَوْتِهَا ۚ قَدْ بَيَّنَّا لَكُمُ الْآيَاتِ لَعَلَّكُمْ تَعْقِلُونَ﴾ [الحديد:16-17].</p>
+        <p>🔍 إحياء الأرض بالمطر دليل على قدرة الله على إحياء القلوب بالهدى والعلم، فكما تحيا الأرض بعد موتها، تحيا القلوب بالإيمان والقرآن.</p>
+    </div>
+
+    <div class="verse-box">
+        <p>🌊 <strong>مثل آخر:</strong> ﴿أَنزَلَ مِنَ السَّمَاءِ مَاءً فَسَالَتْ أَوْدِيَةٌ بِقَدَرِهَا...﴾ [الرعد:17]. شبه القلوب بالأودية، فكل وعاء يأخذ بقدر استعداده، والزبد يذهب جفاء، وما ينفع الناس يمكث في الأرض.</p>
+    </div>
+
+    <!-- فوائد إضافية و بطاقات تعليمية تفاعلية -->
+    <div class="flashcard">
+        <h3>⭐ بطاقات مراجعة سريعة ⭐</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1rem;">
+            <button class="interactive-btn" onclick="alert('🌧️ الغيث = الهدى والعلم الذي أرسل به النبي ﷺ، وهو سبب حياة القلوب كما أن المطر سبب حياة الأرض.')">🌧️ ما هو الغيث في الحديث؟</button>
+            <button class="interactive-btn" onclick="alert('الأرض الطيبة: حفظت الماء وأنبتت -> هم العلماء الفقهاء الذين يعلمون ويعملون ويستنبطون.')">🌾 من هم الأرض الطيبة؟</button>
+            <button class="interactive-btn" onclick="alert('الأجادب: أرض ملساء تمسك الماء ولا تنبت، وهم حفظة العلم الذين ينقلونه وينفعون الناس وإن لم يصلوا لمرتبة الاستنباط.')">💧 الأجادب من الناس؟</button>
+            <button class="interactive-btn" onclick="alert('القيعان: لا ماء ولا نبات، وهم الذين لم ينتفعوا بالهدى إطلاقاً، ولم يقبلوه.')">⚠️ معنى القيعان؟</button>
+            <button class="interactive-btn" onclick="alert('قال الإمام أحمد: حاجة الناس إلى العلم أعظم من حاجتهم إلى الطعام والشراب؛ لأن العلم يحتاج إليه بعدد الأنفاس.')">📚 حاجة الناس للعلم</button>
+        </div>
+    </div>
+
+    <!-- حكمة و فقه القلوب (شرح إضافي) -->
+    <div class="accordion">
+        <button class="accordion-btn">💡 من أسرار التشبيه: القلوب أوعية والعلم غذاء الروح 🔽</button>
+        <div class="accordion-content">
+            <p>🔸 قال ابن القيم: شبه ﷺ العلم بالشراب، فقد قال ﷺ: «رَأَيْتُ كَأَنِّي أُتِيتُ بِقَدَحٍ فَشَرِبْتُ حَتَّى إِنِّي لَأَرَى الرِّيَّ يَخْرُجُ مِنْ أَظْفَارِي ثُمَّ نَاوَلْتُ فَضْلِي عُمَرَ» قالوا: ما أولته؟ قال: «العلم».</p>
+            <p>🔹 والقلوب تعطش إلى العلم والإيمان كما تعطش الأرض إلى المطر، فمن رزقه الله فهماً وعلماً فقد حصلت له حياة طيبة، والله يحيي القلوب الميتة بالقرآن.</p>
+            <p>📌 قال تعالى: ﴿وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا﴾، وإحياء القلوب بالعلم النافع والهدى من أعظم الإحياء.</p>
+        </div>
+    </div>
+
+    <div class="accordion">
+        <button class="accordion-btn">📝 خصائص الحديث العظيم (شرف العلم وأقسام الناس) 🔽</button>
+        <div class="accordion-content">
+            <ul>
+                <li>✔️ التنبيه على عظمة العلم والتعليم، وشقاء من ليس من أهله.</li>
+                <li>✔️ ذكر أقسام بني آدم: شقي وسعيد، والسعيد سابق مقرب ومقتصد صاحب يمين.</li>
+                <li>✔️ أن حاجة العباد إلى العلم كحاجتهم إلى المطر بل أعظم.</li>
+                <li>✔️ فضل من حفظ العلم ونفع به، وأن تعليم الناس ولو بعض العلم خير عظيم.</li>
+                <li>✔️ فيه تحذير من الإعراض عن الهدى، وأن القسوة مصيرها النار والعياذ بالله.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- اختبار تفاعلي خفيف للمراجعة -->
+    <div style="background: #e9dfc3; border-radius: 28px; padding: 1.5rem; margin: 2rem 0;">
+        <h3>📝 اختبر فهمك (تفاعلي)</h3>
+        <div id="quiz-area">
+            <p><strong>س1: كم قسماً قسم النبي ﷺ الناس بحسب قبولهم للهدى والعلم؟</strong></p>
+            <button class="interactive-btn" style="background: #7c5e3a;" onclick="checkAnswer(1, 'ثلاثة أقسام')">الإجابة</button>
+            <p><strong>س2: من هم القسم الثاني الذي أمسك الماء ونفع الناس؟</strong></p>
+            <button class="interactive-btn" style="background: #7c5e3a;" onclick="checkAnswer(2, 'أهل الحفظ والرواية الذين لم يرزقوا التفقه العميق لكن نفعوا الناس')">الإجابة</button>
+            <p><strong>س3: ماذا يمثل الغيث في الحديث؟</strong></p>
+            <button class="interactive-btn" style="background: #7c5e3a;" onclick="checkAnswer(3, 'الهدى والعلم الذي بعث الله به النبي ﷺ')">الإجابة</button>
+        </div>
+        <p id="quiz-feedback" style="margin-top: 1rem; font-weight: bold; color: #2c5a2a;"></p>
+    </div>
+
+    <!-- دعاء و ختام -->
+    <div style="text-align: center; background: #d9cb9a40; border-radius: 32px; padding: 1rem;">
+        <p>🤲 <strong>اللهم اجعلنا من أهل القرآن الذين هم أهلك وخاصتك، وارزقنا الفقه في الدين، ونفعنا بما علمتنا، وعلمنا ما ينفعنا.</strong></p>
+        <p>✨ <em>فالعلم النافع هو الغيث الذي تحيا به القلوب، فاجعلنا اللهم من أهل الأرض الطيبة التي قبلت الماء فأنبتت كلأً كثيراً.</em></p>
+    </div>
+
+    <footer>
+        📚 مستفاد من شرح الحديث لابن القيم رحمه الله وشراح السنة | صفحة تعليمية تفاعلية لدراسة مثل الهدى والعلم
+    </footer>
+</div>
+
+<script>
+    // accordion dynamic
+    const btns = document.querySelectorAll('.accordion-btn');
+    btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const content = btn.nextElementSibling;
+            content.classList.toggle('show');
+            btn.innerHTML = btn.innerHTML.includes('🔽') ? btn.innerHTML.replace('🔽', '🔼') : btn.innerHTML.replace('🔼', '🔽');
+        });
+    });
+
+    // quiz feedback
+    function checkAnswer(qid, correctAns) {
+        let msg = '';
+        if (qid === 1) msg = '✅ الإجابة الصحيحة: ثلاثة أقسام (الأرض الطيبة، الأجادب، القيعان).';
+        else if (qid === 2) msg = '✅ هم القسم الثاني: الذين حفظوا ورووا ونقلوا العلم وانتفع بهم الناس، مثل الأجادب التي تمسك الماء.';
+        else if (qid === 3) msg = '✅ الغيث هو الهدى والعلم الذي بعث الله به نبيه ﷺ، وهو سبب حياة القلوب.';
+        document.getElementById('quiz-feedback').innerHTML = msg + '<br> 📖 راجع الجدول أعلاه للمزيد.';
+    }
+
+    // optional open first accordion for better UX
+    setTimeout(() => {
+        const firstAcc = document.querySelector('.accordion .accordion-content');
+        if(firstAcc && !firstAcc.classList.contains('show')) {
+            // we keep them closed for less clutter but can add hint
+        }
+    }, 100);
+</script>
+</body>
+</html>
