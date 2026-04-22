@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>السيرة النبوية (ج3) | دروس تفاعلية | غزوات وأحداث السنة الثالثة للهجرة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fefaf0;
+            font-family: 'Segoe UI', 'Tajawal', 'Cairo', system-ui, sans-serif;
+            color: #2c2b28;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            background: linear-gradient(120deg, #1e4a2f, #2c6e3c);
+            padding: 1.5rem;
+            border-radius: 48px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* grille principale */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            flex: 1;
+            min-width: 280px;
+            border: 1px solid #e9e2d0;
+        }
+
+        .panel-header {
+            background: #fdf5e6;
+            padding: 1rem 1.5rem;
+            border-bottom: 3px solid #d4b87a;
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #7a4c2c;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .panel-header span {
+            font-size: 1.6rem;
+        }
+
+        .panel-content {
+            padding: 1.5rem;
+        }
+
+        /* بطاقات الأحداث */
+        .event-card {
+            background: #fffcf5;
+            border-right: 6px solid #2b7a4b;
+            margin-bottom: 1.2rem;
+            padding: 1rem 1.2rem;
+            border-radius: 20px;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            background: #fef7e8;
+            transform: translateX(-3px);
+        }
+
+        .event-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #1f5e3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .event-desc {
+            color: #4a5b52;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .badge-date {
+            background: #e9e2d0;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            color: #5e3a22;
+        }
+
+        /* flashcards */
+        .flashcard {
+            background: #f2efe7;
+            border-radius: 28px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #ddd0b6;
+        }
+
+        .flashcard-question {
+            font-weight: 700;
+            color: #2c5a2e;
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .flashcard-answer {
+            background: #fff8e7;
+            border-radius: 20px;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            color: #2d3e3a;
+            display: none;
+            border-top: 1px dashed #cfc5aa;
+            margin-top: 0.7rem;
+        }
+
+        .flashcard.show .flashcard-answer {
+            display: block;
+        }
+
+        /* quiz */
+        .quiz-option {
+            background: #fcf9f2;
+            border: 1px solid #e3d7c0;
+            border-radius: 60px;
+            padding: 0.7rem 1rem;
+            margin: 0.6rem 0;
+            cursor: pointer;
+            transition: 0.1s;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: #e9e0ce;
+        }
+
+        .quiz-feedback {
+            margin-top: 0.7rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 24px;
+        }
+
+        .btn {
+            background: #2b7a4b;
+            border: none;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.1s;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #2b7a4b;
+            color: #2b7a4b;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to left, #edd9b0, transparent);
+            margin: 1rem 0;
+        }
+
+        .info-box {
+            background: #f1f0e8;
+            border-radius: 20px;
+            padding: 0.9rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #7f6e5a;
+            border-top: 1px solid #e2d9ca;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📖 مختصر السيرة النبوية (الجزء الثالث)</h1>
+        <p>السنة الثانية والثالثة للهجرة | غزوات، سرايا، زيجات نبوية، وأحداث كبرى — محتوى تفاعلي للحفظ والمراجعة</p>
+    </div>
+
+    <div class="dashboard">
+        <!-- العمود الأول: الأحداث الرئيسية -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>⚡</span> 1 · أبرز الأحداث والغزوات
+            </div>
+            <div class="panel-content">
+                <div class="event-card">
+                    <div class="event-title">📌 ظهور النفاق <span class="badge-date">بعد غزوة بدر</span></div>
+                    <div class="event-desc">بدأ النفاق يظهر في المدينة بعد غزوة بدر الكبرى، وكان زعيم المنافقين عبد الله بن أبي بن سلول. دخلوا الإسلام ظاهرًا وأبطنوا الكيد. لم يكن نفاق في مكة لضعف المسلمين وشدة الابتلاء.</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-title">⚔️ غزوة بني قينقاع <span class="badge-date">شوال 2 هـ</span></div>
+                    <div class="event-desc">يهود بني قينقاع نقضوا العهد وأظهروا البغي والحسد بعد انتصار المسلمين في بدر. حاصرهم الرسول ﷺ حتى نزلوا على حكمه، فأجلاهم من المدينة إلى الشام.</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-title">🍞 غزوة السويق <span class="badge-date">ذو الحجة 2 هـ</span></div>
+                    <div class="event-desc">أبو سفيان خرج في مائتي راكب إلى أطراف المدينة، أحرق نخلاً وقتل رجلين. خرج النبي ﷺ في طلبهم فألقوا جرب السويق تخففًا، فسميت الغزوة بذلك.</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-title">🗡️ مقتل كعب بن الأشرف <span class="badge-date">ربيع الأول 3 هـ</span></div>
+                    <div class="event-desc">كعب بن الأشرف اليهودي أذى الله ورسوله وهجا المسلمين وأثار الأحزاب. قال النبي ﷺ: «من لكعب بن الأشرف؟» فانتدب محمد بن مسلمة ومعه جماعة فقتلوه بعد حيلة مبيحة في الحرب.</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-title">💍 زواج النبي بحفصة & زينب <span class="badge-date">3-4 هـ</span></div>
+                    <div class="event-desc">تزوج النبي ﷺ حفصة بنت عمر بعد وفاة زوجها خُنيس بن حذافة، ثم تزوج زينب بنت خزيمة (أم المساكين) التي توفيت بعده بشهرين أو ثلاثة.</div>
+                </div>
+                <div class="event-card">
+                    <div class="event-title">🛡️ غزوة ذي أمر (غطفان) <span class="badge-date">المحرم 3 هـ</span></div>
+                    <div class="event-desc">خرج النبي ﷺ في 150 رجلًا إلى بني ثعلبة بذي أمر لما بلغه تجمعهم لإغارة المدينة، فهربوا إلى رؤوس الجبال.</div>
+                </div>
+                <div class="info-box">
+                    🌟 <strong>خلاصة:</strong> السنة الثالثة شهدت استقرارًا للمدينة مع تصفية للخطر الداخلي (قتل كعب بن الأشرف، إجلاء بني قينقاع) واستعدادًا لغزوة أحد.
+                </div>
+            </div>
+        </div>
+
+        <!-- العمود الثاني: بطاقات مراجعة (فلاش كارد) -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>🃟</span> 2 · بطاقات المراجعة السريعة
+            </div>
+            <div class="panel-content">
+                <div id="flashcardContainer"></div>
+                <div class="divider"></div>
+                <div class="info-box">
+                    💡 <strong>تذكير مهم</strong>: قال النبي ﷺ في قصة كعب: «من لكعب بن الأشرف فإنه آذى الله ورسوله» — وكان قتله درسًا في تأمين الدولة.
+                </div>
+            </div>
+        </div>
+
+        <!-- العمود الثالث: اختبار تفاعلي -->
+        <div class="panel">
+            <div class="panel-header">
+                <span>📝</span> 3 · اختبر معلوماتك
+            </div>
+            <div class="panel-content">
+                <div id="quizArea"></div>
+                <button class="btn" id="resetQuizBtn" style="margin-top: 0.8rem; width:100%">⟳ إعادة الاختبار</button>
+                <div class="divider"></div>
+                <div class="info-box">
+                    📚 <strong>من زوائد الكتاب:</strong> عثمان بن مظعون أول من دُفن بالبقيع من المهاجرين، وكان شديد الاجتهاد حتى نهاه النبي ﷺ عن التبتل.
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        ⚡ صفحة تعليمية تفاعلية مأخوذة من مختصر السيرة النبوية (ج3) — جامعة منهاج النبوة.<br>
+        راجِع الأحداث، احفظ البطاقات، واختبر فهمك للغزوات والزواج النبوي وأخبار المنافقين.
+    </footer>
+</div>
+
+<script>
+    // ------------------------------------- بطاقات المراجعة -------------------------------------
+    const flashcardsData = [
+        { question: "📌 متى بدأ ظهور النفاق في المدينة؟", answer: "بدأ بعد غزوة بدر الكبرى، حيث دخل قوم في الإسلام ظاهرًا وأبطنوا الكفر والكيد." },
+        { question: "⚔️ من هو زعيم المنافقين؟", answer: "عبد الله بن أبي بن سلول، وكان قومه قد نظموا الخرز ليتوجوه ملكًا قبل قدوم النبي ﷺ." },
+        { question: "🍞 لماذا سميت غزوة السويق بهذا الاسم؟", answer: "لأن أبا سفيان وأصحابه ألقوا جرب السويق (الزاد) تخففًا للهرب، فجمع المسلمون سويقًا كثيرًا." },
+        { question: "🗡️ من قتل كعب بن الأشرف؟", answer: "محمد بن مسلمة، وأبو نائلة (سلكان بن سلامة) وعبد الله بن أنيس، بإذن النبي ﷺ بعد أن استأذنوا في قول شيء من الحيلة." },
+        { question: "💍 من هي زينب بنت خزيمة؟", answer: "تُكنى أم المساكين لكثرة إطعامها المساكين، تزوجها النبي ﷺ في رمضان السنة الثالثة، وتوفيت بعد شهرين أو ثلاثة." },
+        { question: "🕯️ من أول من دُفن بالبقيع من المهاجرين؟", answer: "عثمان بن مظعون رضي الله عنه، وكان شديد التعبد حتى نهاه النبي عن التبتل والاختصاء." },
+        { question: "🏹 ما هي غزوة ذي أمر؟", answer: "غزوة في المحرم السنة الثالثة، خرج النبي ﷺ إلى بني ثعلبة بذي أمر، فهربوا إلى رؤوس الجبال." }
+    ];
+
+    // ------------------------------------- بيانات الاختبار -------------------------------------
+    const quizQuestions = [
+        {
+            text: "❓ من هو الصحابي الذي قال له النبي ﷺ: «أفلح الوجوه» بعد قتل كعب بن الأشرف؟",
+            options: ["محمد بن مسلمة", "أبو نائلة", "الحارث بن أوس", "عباد بن بشر"],
+            correct: 0,
+            explanation: "محمد بن مسلمة هو قائد المجموعة، وعندما رجعوا وكبروا قال النبي ﷺ: أفلح الوجوه."
+        },
+        {
+            text: "❓ لماذا منع النبي ﷺ عثمان بن مظعون من التبتل والاختصاء؟",
+            options: ["لأنه كان كبير السن", "لتكثير النسل واستمرار الجهاد", "لأنه لم يأذن له أبوه", "لأن التبتل محرم بالقرآن"],
+            correct: 1,
+            explanation: "الحكمة: زيادة النسل واستمرار جهاد الكفار، ولو أذن لانقطع النسل وقلّ المسلمون."
+        },
+        {
+            text: "❓ أي قبيلة يهودية أجلاهم النبي ﷺ بعد غزوة بدر بسبب نقض العهد والبغي؟",
+            options: ["بنو النضير", "بنو قريظة", "بنو قينقاع", "يهود خيبر"],
+            correct: 2,
+            explanation: "بنو قينقاع كانوا صاغة ونقضوا العهد وأظهروا الحسد، فأجلاهم النبي ﷺ إلى الشام."
+        },
+        {
+            text: "❓ من هي الصحابية التي تزوجها النبي ﷺ بعد وفاة زوجها خنيس بن حذافة السهمي؟",
+            options: ["زينب بنت جحش", "أم سلمة", "حفصة بنت عمر", "ميمونة بنت الحارث"],
+            correct: 2,
+            explanation: "حفصة بنت عمر بن الخطاب، تزوجها النبي ﷺ بعد أن انقضت عدتها من خنيس بن حذافة."
+        },
+        {
+            text: "❓ ما سبب تسمية غزوة السويق؟",
+            options: ["لكثرة السويق الذي تصدق به المسلمون", "لأن أبا سفيان وأصحابه ألقوا جرب السويق تخففًا للهرب", "لأن النبي ﷺ وزع السويق على الفقراء", "لأن السويق كان طعام المشركين"],
+            correct: 1,
+            explanation: "طرحوا جرب السويق -وهو زادهم- لينجوا هاربين، فجمع المسلمون سويقًا كثيرًا."
+        }
+    ];
+
+    let currentQuizState = quizQuestions.map(() => ({ selected: null, answered: false }));
+
+    // عرض البطاقات
+    function renderFlashcards() {
+        const container = document.getElementById('flashcardContainer');
+        if (!container) return;
+        container.innerHTML = '';
+        flashcardsData.forEach((card, idx) => {
+            const flashDiv = document.createElement('div');
+            flashDiv.className = 'flashcard';
+            flashDiv.setAttribute('data-idx', idx);
+            flashDiv.innerHTML = `
+                <div class="flashcard-question">📖 ${card.question}</div>
+                <div class="flashcard-answer">${card.answer}</div>
+            `;
+            flashDiv.addEventListener('click', () => {
+                flashDiv.classList.toggle('show');
+            });
+            container.appendChild(flashDiv);
+        });
+    }
+
+    // عرض الاختبار
+    function renderQuiz() {
+        const quizContainer = document.getElementById('quizArea');
+        if (!quizContainer) return;
+        let html = '';
+        quizQuestions.forEach((q, idx) => {
+            const state = currentQuizState[idx];
+            const selectedIndex = state.selected;
+            const isAnswered = state.answered;
+            html += `<div style="margin-bottom: 2rem; border-bottom: 1px solid #efe2ce; padding-bottom: 1rem;">`;
+            html += `<div style="font-weight: 800; margin-bottom: 0.8rem;">${q.text}</div>`;
+            q.options.forEach((opt, optIdx) => {
+                let styleAttr = '';
+                let indicator = '';
+                if (isAnswered) {
+                    if (optIdx === q.correct) {
+                        styleAttr = 'style="background: #d9f0e1; border-color: #2b7a4b;"';
+                        indicator = ' ✓';
+                    } else if (optIdx === selectedIndex && optIdx !== q.correct) {
+                        styleAttr = 'style="background: #ffe1db; border-color: #c75c3c;"';
+                        indicator = ' ✗';
+                    }
+                } else if (selectedIndex === optIdx) {
+                    styleAttr = 'style="background: #e9e0ce;"';
+                }
+                html += `<div class="quiz-option" data-qidx="${idx}" data-oidx="${optIdx}" ${styleAttr}>${opt}${indicator}</div>`;
+            });
+            if (isAnswered) {
+                html += `<div class="quiz-feedback" style="color:#2d6a4f; background:#eef4ea; padding:0.5rem 1rem; border-radius:20px;">💡 ${q.explanation}</div>`;
+            } else if (selectedIndex !== null && !isAnswered) {
+                html += `<div style="margin-top: 0.5rem;"><button class="btn" data-validate="${idx}" style="font-size:0.75rem;">✔ تأكيد الإجابة</button></div>`;
+            }
+            html += `</div>`;
+        });
+        quizContainer.innerHTML = html;
+
+        // أحداث الخيارات
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                const qidx = parseInt(opt.getAttribute('data-qidx'));
+                const oidx = parseInt(opt.getAttribute('data-oidx'));
+                if (currentQuizState[qidx].answered) return;
+                currentQuizState[qidx].selected = oidx;
+                renderQuiz();
+            });
+        });
+
+        // أزرار التأكيد
+        document.querySelectorAll('[data-validate]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const qidx = parseInt(btn.getAttribute('data-validate'));
+                const state = currentQuizState[qidx];
+                if (state.selected !== null && !state.answered) {
+                    state.answered = true;
+                    renderQuiz();
+                } else if (state.selected === null) {
+                    const parentDiv = btn.closest('div[style*="margin-bottom: 2rem"]');
+                    const feedback = document.createElement('div');
+                    feedback.className = 'quiz-feedback';
+                    feedback.style.background = "#ffe6cc";
+                    feedback.innerText = "⚠️ يرجى اختيار إجابة أولاً";
+                    parentDiv.appendChild(feedback);
+                    setTimeout(() => feedback.remove(), 1500);
+                }
+            });
+        });
+    }
+
+    function resetQuiz() {
+        currentQuizState = quizQuestions.map(() => ({ selected: null, answered: false }));
+        renderQuiz();
+    }
+
+    // تشغيل التطبيق
+    document.addEventListener('DOMContentLoaded', () => {
+        renderFlashcards();
+        renderQuiz();
+        const resetBtn = document.getElementById('resetQuizBtn');
+        if (resetBtn) resetBtn.addEventListener('click', resetQuiz);
+    });
+</script>
+</body>
+</html>
