@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les sentiers de la connaissance — Jihad & Tâghout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --bg: #f5f1e6;
+    --bg-2: #ebe4d2;
+    --parchment: #faf6ea;
+    --ink: #2a2418;
+    --ink-soft: #5b5240;
+    --forest: #1f3d2b;
+    --forest-2: #2f5a3f;
+    --forest-soft: #6b9077;
+    --gold: #b58a3c;
+    --gold-soft: #d8b878;
+    --rouille: #8b3c1c;
+    --rouille-soft: #c97a4f;
+    --shadow: 0 18px 40px -16px rgba(31,61,43,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(181,138,60,0.10), transparent 60%),
+      radial-gradient(1000px 500px at 110% 10%, rgba(31,61,43,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem 4rem;
+    line-height: 1.6;
+  }
+
+  .serif { font-family: 'Cormorant Garamond', serif; }
+
+  .app { max-width: 1280px; margin: 0 auto; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    text-align: center;
+    padding: 3rem 1rem 4rem;
+    animation: fadeDown 0.9s ease-out both;
+  }
+  .hero .icons {
+    display: flex; gap: 1.2rem; justify-content: center;
+    color: var(--gold);
+    font-size: 1.4rem;
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    animation: fadeIn 0.9s ease-out 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .hero .divider {
+    width: 80px; height: 1px; background: var(--gold-soft);
+    margin: 1rem auto 1.5rem;
+  }
+  .hero .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--forest-2);
+    margin-bottom: 1.2rem;
+  }
+  .hero .lead {
+    max-width: 620px; margin: 0 auto;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section {
+    margin: 4rem 0;
+    animation: fadeUp 0.8s ease-out both;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .section-head .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+  .section-head h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    color: var(--forest);
+    font-weight: 600;
+  }
+  .section-head p {
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  /* ---------- MINDMAP ---------- */
+  .mindmap-wrap {
+    background: var(--parchment);
+    border: 1px solid rgba(181,138,60,0.25);
+    border-radius: 24px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  svg.mindmap {
+    width: 100%;
+    height: 560px;
+    display: block;
+    background:
+      radial-gradient(circle at center, rgba(181,138,60,0.05), transparent 70%),
+      var(--parchment);
+    border-radius: 18px;
+  }
+  .mindmap-hint {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+  .node-group { cursor: pointer; transition: transform 0.25s ease, filter 0.25s ease; transform-box: fill-box; transform-origin: center; }
+  .node-group:hover { filter: drop-shadow(0 6px 14px rgba(31,61,43,0.25)); }
+  .node-group.pulse { animation: nodePop 0.45s ease-out; }
+  .edge { stroke-dasharray: 6 4; animation: dash 30s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -1000; } }
+  @keyframes nodePop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+  /* ---------- FLASHCARDS ---------- */
+  .flash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.4rem;
+  }
+  .flashcard { perspective: 1200px; height: 230px; }
+  .flashcard-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    padding: 1.4rem;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+  .flashcard-front {
+    background: linear-gradient(145deg, var(--parchment), #f4ecd8);
+    border: 1px solid rgba(181,138,60,0.3);
+    color: var(--forest);
+  }
+  .flashcard-front .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  .flashcard-front .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .flashcard-front .hint {
+    margin-top: auto;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .flashcard-back {
+    background: linear-gradient(145deg, var(--forest), var(--forest-2));
+    color: #f4ecd8;
+    transform: rotateY(180deg);
+    border: 1px solid var(--forest-2);
+  }
+  .flashcard-back .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+  .flashcard-back .body {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .actions { text-align: center; margin-top: 2rem; }
+  .btn {
+    background: var(--forest);
+    color: var(--parchment);
+    border: none;
+    padding: 0.75rem 1.6rem;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 16px -8px rgba(31,61,43,0.6);
+  }
+  .btn:hover { background: var(--forest-2); transform: translateY(-2px); }
+  .btn i { margin-right: 0.5rem; }
+
+  /* ---------- TÂGHOUT ---------- */
+  .taghout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+  .taghout-card {
+    background: linear-gradient(145deg, #fbf5e6, #efe4cb);
+    border: 1px solid rgba(139,60,28,0.25);
+    border-left: 4px solid var(--rouille);
+    border-radius: 16px;
+    padding: 1.4rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .taghout-card:hover { transform: translateY(-4px); border-left-color: var(--rouille-soft); }
+  .taghout-card .rank {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--rouille);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+  .taghout-card .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.25;
+  }
+  .taghout-card .hint {
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .pull-quote {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--forest);
+    padding: 1.5rem;
+    border-top: 1px solid var(--gold-soft);
+    border-bottom: 1px solid var(--gold-soft);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pull-quote::before, .pull-quote::after { content: '«'; color: var(--gold); margin: 0 0.4rem; }
+  .pull-quote::after { content: '»'; }
+
+  /* ---------- MODAL ---------- */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(31,36,24,0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 100;
+    padding: 1rem;
+    animation: fadeIn 0.25s ease;
+  }
+  .modal-bg.show { display: flex; }
+  .modal {
+    background: var(--parchment);
+    border-radius: 22px;
+    padding: 2rem 1.8rem;
+    max-width: 520px; width: 100%;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.4);
+    animation: modalUp 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid var(--gold-soft);
+  }
+  .modal h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--forest);
+    margin-bottom: 0.4rem;
+  }
+  .modal .meta {
+    font-size: 0.75rem;
+    color: var(--rouille);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .modal p {
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .modal .close {
+    background: var(--forest);
+    color: var(--parchment);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  /* ---------- TOOLTIP ---------- */
+  .tooltip {
+    position: fixed;
+    background: var(--forest);
+    color: var(--parchment);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    pointer-events: none;
+    z-index: 200;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+  .tooltip.show { opacity: 1; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(181,138,60,0.25);
+    color: var(--forest);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  /* ---------- ANIMATIONS ---------- */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px);} to { opacity: 1; transform: translateY(0);} }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+  @keyframes fadeIn { from { opacity: 0;} to { opacity: 1;} }
+  @keyframes modalUp { from { opacity: 0; transform: translateY(30px) scale(0.96);} to { opacity: 1; transform: translateY(0) scale(1);} }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 700px) {
+    body { padding: 1.5rem 1rem; }
+    svg.mindmap { height: 460px; }
+    .flashcard { height: 210px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="icons">
+      <i class="fas fa-leaf"></i>
+      <i class="fas fa-book-open"></i>
+      <i class="fas fa-scroll"></i>
+    </div>
+    <h1>Les sentiers de la connaissance</h1>
+    <div class="divider"></div>
+    <div class="subtitle">Jihad & Tâghout</div>
+    <p class="lead">Une exploration interactive des fondements spirituels : comprendre la lutte intérieure, démasquer les illusions et purifier la foi.</p>
+  </header>
+
+  <!-- ============ MINDMAP ============ -->
+  <section class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow">Vision d'ensemble</div>
+      <h2>Carte mentale interactive</h2>
+      <p>Cliquez sur les nœuds pour révéler les ramifications</p>
+    </div>
+    <div class="mindmap-wrap">
+      <svg class="mindmap" id="mindmap" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="mindmap-hint"><i class="fas fa-hand-pointer"></i> Survolez et cliquez les nœuds pour explorer</div>
+  </section>
+
+  <!-- ============ FLASHCARDS ============ -->
+  <section class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow">Mémorisation active</div>
+      <h2>Flashcards révisables</h2>
+      <p>Cliquez sur une carte pour la retourner</p>
+    </div>
+    <div class="flash-grid" id="flashGrid"></div>
+    <div class="actions">
+      <button class="btn" id="resetBtn"><i class="fas fa-undo-alt"></i>Retourner toutes les cartes</button>
+    </div>
+  </section>
+
+  <!-- ============ TÂGHOUT ============ -->
+  <section class="section reveal">
+    <div class="section-head">
+      <div class="eyebrow">Les cinq piliers de la déviance</div>
+      <h2>Le Tâghout</h2>
+      <p>Cliquez sur une carte pour découvrir l'explication détaillée</p>
+    </div>
+    <div class="taghout-grid" id="taghoutGrid"></div>
+    <div class="pull-quote">
+      Celui qui ne gouverne pas selon les lois révélées par Allah
+    </div>
+  </section>
+
+  <footer>
+    Et Allah est le plus savant — Qu'Allah accorde Ses prières et Son salut à Mohammad ﷺ
+  </footer>
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="meta" id="modalMeta"></div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody"></p>
+    <button class="close" id="modalClose">Fermer</button>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+  // ============ DONNÉES ============
+  const flashcards = [
+    { num: "01", title: "Jihad contre l'âme", body: "Application de la sourate Al-'Asr : la science, la pratique, le prêche et la patience. C'est la lutte spirituelle intérieure pour la purification de soi." },
+    { num: "02", title: "Jihad contre le diable et ses tentations", body: "Lutte contre les passions et les tentations : les grands péchés (qui ont une peine particulière) et les petits péchés (interdictions sans sanction particulière)." },
+    { num: "03", title: "Jihad contre les ambiguïtés", body: "Trois catégories : 1) Le grand chirk (qui fait sortir de l'islam), 2) Le petit chirk, 3) Les innovations religieuses (bid'ah)." },
+    { num: "04", title: "Jihad contre les mécréants et hypocrites", body: "Il s'effectue de quatre manières : par le cœur, par la langue, par le corps, et par les biens (l'argent et le soutien matériel)." },
+    { num: "05", title: "Qu'est-ce que le Tâghout ?", body: "Toute entité adorée en dehors d'Allah qui transgresse les limites fixées par Lui. Les principaux Tâghout sont au nombre de cinq." },
+    { num: "06", title: "1er Tâghout — Iblis (Satan)", body: "L'ennemi juré de l'humanité, source originelle de l'égarement et chef des forces opposées à la guidance divine." },
+    { num: "07", title: "2e Tâghout — L'adoré qui approuve", body: "Celui qui est adoré en dehors d'Allah et qui approuve cette adoration (tyran ou faux dieu satisfait du culte qui lui est rendu)." },
+    { num: "08", title: "3e Tâghout — L'appelant à l'adoration", body: "Celui qui appelle les gens à l'adorer lui-même (chef sectaire, prêcheur d'égarement, leader d'un culte déviant)." },
+    { num: "09", title: "4e Tâghout — Le prétendant à l'invisible", body: "Celui qui prétend connaître les choses cachées (devins, magiciens, faux prophètes, voyants)." },
+    { num: "10", title: "5e Tâghout — Le législateur injuste", body: "Celui qui ne gouverne pas selon les lois qu'Allah a révélées, qui substitue ses propres jugements à la législation divine." }
+  ];
+
+  const taghouts = [
+    { rank: "I", name: "Iblis (Satan)", body: "L'ennemi juré de l'humanité, source originelle de l'égarement et chef des forces opposées à la guidance divine. Sa déviance fondatrice marque le début de la transgression." },
+    { rank: "II", name: "L'adoré qui approuve", body: "Celui qui est adoré en dehors d'Allah et qui approuve cette adoration : un tyran ou un faux dieu satisfait du culte qui lui est rendu, accepte volontairement la divinisation." },
+    { rank: "III", name: "L'appelant à l'adoration", body: "Celui qui appelle les gens à l'adorer lui-même : chef sectaire, prêcheur d'égarement, leader d'un culte déviant qui détourne activement les âmes du Créateur." },
+    { rank: "IV", name: "Le prétendant à l'invisible", body: "Celui qui prétend connaître les choses cachées : devins, magiciens, faux prophètes, voyants — ceux qui s'arrogent une science qui appartient à Allah seul." },
+    { rank: "V", name: "Le législateur injuste", body: "Celui qui ne gouverne pas selon les lois qu'Allah a révélées, qui substitue ses propres jugements à la législation divine et impose ses règles aux croyants." }
+  ];
+
+  const mindTree = {
+    name: "Jihad & Tâghout",
+    detail: "Pôle central : la lutte spirituelle et sociétale",
+    branches: [
+      {
+        name: "Jihad de l'Âme",
+        detail: "Sourate Al-'Asr : science, pratique, prêche, patience",
+        sub: ["Science", "Pratique", "Prêche", "Patience"]
+      },
+      {
+        name: "Diable & Passions",
+        detail: "Lutte contre les tentations quotidiennes",
+        sub: ["Grands péchés", "Petits péchés"]
+      },
+      {
+        name: "Ambiguïtés (Chirk)",
+        detail: "Préservation de la pureté du Tawhid",
+        sub: ["Grand chirk", "Petit chirk", "Innovations"]
+      },
+      {
+        name: "Mécréants & Hypocrites",
+        detail: "Combat par cœur, langue, corps, biens",
+        sub: ["Cœur", "Langue", "Corps", "Biens"]
+      },
+      {
+        name: "Le Tâghout (5 piliers)",
+        detail: "Les cinq formes de transgression majeure",
+        sub: ["Iblis", "L'adoré qui approuve", "L'appelant à l'adoration", "Prétendant à l'invisible", "Législateur injuste"]
+      }
+    ]
+  };
+
+  // ============ FLASHCARDS ============
+  const flashGrid = document.getElementById('flashGrid');
+  flashcards.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'flashcard';
+    card.style.animationDelay = (i * 50) + 'ms';
+    card.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="num">${c.num}</div>
+          <div class="title">${c.title}</div>
+          <div class="hint"><i class="fas fa-sync-alt"></i> Retourner</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="label"><i class="fas fa-lightbulb"></i> Rappel</div>
+          <div class="body">${c.body}</div>
+        </div>
+      </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    flashGrid.appendChild(card);
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    document.querySelectorAll('.flashcard').forEach(c => c.classList.remove('flipped'));
+  });
+
+  // ============ TÂGHOUT ============
+  const taghoutGrid = document.getElementById('taghoutGrid');
+  taghouts.forEach((t, i) => {
+    const card = document.createElement('div');
+    card.className = 'taghout-card';
+    card.innerHTML = `
+      <div class="rank">${t.rank}</div>
+      <div class="name">${t.name}</div>
+      <div class="hint"><i class="fas fa-arrow-right"></i> Lire l'explication</div>`;
+    card.addEventListener('click', () => openModal(`Tâghout ${t.rank}`, t.name, t.body));
+    taghoutGrid.appendChild(card);
+  });
+
+  // ============ MODAL ============
+  const modalBg = document.getElementById('modalBg');
+  function openModal(meta, title, body) {
+    document.getElementById('modalMeta').textContent = meta;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalBody').textContent = body;
+    modalBg.classList.add('show');
+  }
+  document.getElementById('modalClose').addEventListener('click', () => modalBg.classList.remove('show'));
+  modalBg.addEventListener('click', e => { if (e.target === modalBg) modalBg.classList.remove('show'); });
+
+  // ============ MINDMAP ============
+  const SVG_NS = "http://www.w3.org/2000/svg";
+  const svg = document.getElementById('mindmap');
+  const tooltip = document.getElementById('tooltip');
+  const cx = 500, cy = 280;
+  const expanded = new Set();
+
+  function el(tag, attrs = {}) {
+    const e = document.createElementNS(SVG_NS, tag);
+    Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+    return e;
+  }
+
+  function renderMindMap() {
+    svg.innerHTML = '';
+    const branches = mindTree.branches;
+    const totalArc = Math.PI * 1.7;
+    const startAngle = -Math.PI/2 - totalArc/2;
+    const radius = 200;
+
+    branches.forEach((b, idx) => {
+      const angle = startAngle + (totalArc * idx / (branches.length - 1));
+      const bx = cx + Math.cos(angle) * radius;
+      const by = cy + Math.sin(angle) * radius;
+
+      // Edge from center
+      const path = el('path', {
+        d: `M ${cx} ${cy} Q ${cx + Math.cos(angle)*radius*0.5} ${cy + Math.sin(angle)*radius*0.5 - 20} ${bx} ${by}`,
+        stroke: '#6b9077',
+        'stroke-width': 2,
+        fill: 'none',
+        class: 'edge',
+        opacity: 0.6
+      });
+      svg.appendChild(path);
+
+      // Sub-branches if expanded
+      if (expanded.has(idx)) {
+        const subRadius = 110;
+        const subArc = Math.PI * 0.6;
+        const subStart = angle - subArc/2;
+        b.sub.forEach((s, si) => {
+          const sa = b.sub.length === 1 ? angle : subStart + (subArc * si / (b.sub.length - 1));
+          const sx = bx + Math.cos(sa) * subRadius;
+          const sy = by + Math.sin(sa) * subRadius;
+
+          const subPath = el('path', {
+            d: `M ${bx} ${by} Q ${bx + (sx-bx)*0.5} ${by + (sy-by)*0.5 - 10} ${sx} ${sy}`,
+            stroke: '#b58a3c',
+            'stroke-width': 1.5,
+            fill: 'none',
+            class: 'edge',
+            opacity: 0.5
+          });
+          svg.appendChild(subPath);
+
+          const subG = el('g', { class: 'node-group pulse' });
+          const subRect = el('rect', {
+            x: sx - 60, y: sy - 16, width: 120, height: 32,
+            rx: 16, fill: '#faf6ea', stroke: '#b58a3c', 'stroke-width': 1.2
+          });
+          const subText = el('text', {
+            x: sx, y: sy + 4, 'text-anchor': 'middle',
+            fill: '#5b5240', 'font-size': 11, 'font-family': 'Inter', 'font-weight': 500
+          });
+          subText.textContent = s.length > 22 ? s.slice(0, 20) + '…' : s;
+          subG.appendChild(subRect);
+          subG.appendChild(subText);
+          attachTooltip(subG, s);
+          svg.appendChild(subG);
+        });
+      }
+
+      // Branch node
+      const g = el('g', { class: 'node-group' });
+      const rect = el('rect', {
+        x: bx - 80, y: by - 22, width: 160, height: 44,
+        rx: 22, fill: expanded.has(idx) ? '#2f5a3f' : '#1f3d2b',
+        stroke: '#d8b878', 'stroke-width': 1.5
+      });
+      const text = el('text', {
+        x: bx, y: by + 5, 'text-anchor': 'middle',
+        fill: '#faf6ea', 'font-size': 12.5, 'font-family': 'Inter', 'font-weight': 600
+      });
+      text.textContent = b.name.length > 24 ? b.name.slice(0, 22) + '…' : b.name;
+      g.appendChild(rect);
+      g.appendChild(text);
+      g.addEventListener('click', () => {
+        if (expanded.has(idx)) expanded.delete(idx); else expanded.add(idx);
+        renderMindMap();
+      });
+      attachTooltip(g, b.detail + ' · cliquer pour ' + (expanded.has(idx) ? 'replier' : 'développer'));
+      svg.appendChild(g);
+    });
+
+    // Center node
+    const centerG = el('g', { class: 'node-group' });
+    const centerCircle = el('circle', {
+      cx: cx, cy: cy, r: 56,
+      fill: '#1f3d2b', stroke: '#d8b878', 'stroke-width': 3
+    });
+    const centerText1 = el('text', {
+      x: cx, y: cy - 4, 'text-anchor': 'middle',
+      fill: '#faf6ea', 'font-size': 14, 'font-family': 'Cormorant Garamond', 'font-weight': 600
+    });
+    centerText1.textContent = 'Jihad';
+    const centerText2 = el('text', {
+      x: cx, y: cy + 14, 'text-anchor': 'middle',
+      fill: '#d8b878', 'font-size': 12, 'font-family': 'Cormorant Garamond', 'font-style': 'italic'
+    });
+    centerText2.textContent = '& Tâghout';
+    centerG.appendChild(centerCircle);
+    centerG.appendChild(centerText1);
+    centerG.appendChild(centerText2);
+    attachTooltip(centerG, mindTree.detail);
+    svg.appendChild(centerG);
+  }
+
+  function attachTooltip(group, text) {
+    group.addEventListener('mouseenter', e => {
+      tooltip.textContent = text;
+      tooltip.classList.add('show');
+    });
+    group.addEventListener('mousemove', e => {
+      tooltip.style.left = (e.clientX + 14) + 'px';
+      tooltip.style.top = (e.clientY - 36) + 'px';
+    });
+    group.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+  }
+
+  renderMindMap();
+
+  // ============ SCROLL REVEAL ============
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
